@@ -10,7 +10,12 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
-    "test": "node --test",
+    "test": "node tests/unit/test-ddl.js && node tests/unit/test-dml.js && node tests/unit/test-dcl.js",
+    "test:security": "node tests/security/test-security.js",
+    "test:integration": "node tests/integration/test-integration.js",
+    "test:performance": "node tests/performance/test-performance.js",
+    "test:all": "node tests/test-main.js",
+    "test:quick": "node tests/unit/test-ddl.js && node tests/security/test-security.js",
     "lint": "eslint src/",
     "format": "prettier --write src/",
     "install-setup": "node install.js",
@@ -78,6 +83,7 @@
     "scripts/",
     "docs/",
     "examples/",
+    "tests/",
     "README.md",
     "README-EN.md",
     "QUICKSTART.md",
@@ -94,13 +100,26 @@
   "cpu": [
     "x64",
     "arm64"
-  ]
-}
-  "scripts": {
-    "test": "node tests/test-main.js",
-    "test:unit": "node tests/unit/test-ddl.js && node tests/unit/test-dml.js && node tests/unit/test-dcl.js",
-    "test:security": "node tests/security/test-security.js",
-    "test:integration": "node tests/integration/test-integration.js",
-    "test:performance": "node tests/performance/test-performance.js",
-    "test:quick": "node tests/unit/test-ddl.js && node tests/security/test-security.js"
-  }
+  ],
+"eslintConfig": {
+    "env": {
+      "node": true,
+      "es2022": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-unused-vars": "warn",
+      "no-console": "off",
+      "no-undef": "error",
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"],
+      "indent": ["error", 2]
+    }
+  }  
+}  
