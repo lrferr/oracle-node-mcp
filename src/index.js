@@ -7,6 +7,10 @@ import { OracleMonitor } from './oracle-monitor.js';
 import { MigrationValidator } from './migration-validator.js';
 import { NotificationService } from './notification-service.js';
 import { Logger } from './logger.js';
+import { DDLOperations } from './ddl-operations.js';
+import { DMLOperations } from './dml-operations.js';
+import { DCLOperations } from './dcl-operations.js';
+import { SecurityAudit } from './security-audit.js';
 import dotenv from 'dotenv';
 
 // Carregar variáveis de ambiente
@@ -30,6 +34,18 @@ class OracleMCPServer {
     this.migrationValidator = new MigrationValidator();
     this.notificationService = new NotificationService();
     this.logger = new Logger();
+    
+    // Inicializar novos módulos
+    this.connectionConfig = {
+      user: process.env.ORACLE_USER,
+      password: process.env.ORACLE_PASSWORD,
+      connectString: `${process.env.ORACLE_HOST}:${process.env.ORACLE_PORT}/${process.env.ORACLE_SERVICE_NAME}`
+    };
+    
+    this.ddlOperations = new DDLOperations(this.connectionConfig);
+    this.dmlOperations = new DMLOperations(this.connectionConfig);
+    this.dclOperations = new DCLOperations(this.connectionConfig);
+    this.securityAudit = new SecurityAudit();
 
     this.setupHandlers();
   }
@@ -370,6 +386,422 @@ class OracleMCPServer {
               },
               required: ['tableName']
             }
+          },
+          // ===== FERRAMENTAS DDL =====
+          {
+            name: 'create_table',
+            description: 'Cria uma nova tabela no banco de dados',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                tableName: {
+                  type: 'string',
+                  description: 'Nome da tabela'
+                },
+                schema: {
+                  type: 'string',
+                  description: 'Esquema da tabela',
+                  default: 'HR'
+                },
+                columns: {
+                  type: 'array',
+                  description: 'Lista de colunas da tabela',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      name: { type: 'string' },
+                      type: { type: 'string' },
+                      length: { type: 'number' },
+                      precision: { type: 'number' },
+                      notNull: { type: 'boolean' },
+                      defaultValue: { type: 'string' }
+                    },
+                    required: ['name', 'type']
+                  }
+                },
+                constraints: {
+                  type: 'array',
+                  description: 'Lista de constraints da tabela',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      name: { type: 'string' },
+                      type: { type: 'string', enum: ['PRIMARY KEY', 'UNIQUE', 'CHECK', 'FOREIGN KEY'] },
+                      columns: { type: 'array', items: { type: 'string' } },
+                      condition: { type: 'string' },
+                      referencedTable: { type: 'string' },
+                      referencedColumns: { type: 'array', items: { type: 'string' } }
+                    },
+                    required: ['name', 'type']
+                  }
+                },
+                tablespace: {
+                  type: 'string',
+                  description: 'Tablespace da tabela',
+                  default: 'USERS'
+                },
+                ifNotExists: {
+                  type: 'boolean',
+                  description: 'Criar apenas se não existir',
+                  default: true
+                }
+              },
+              required: ['tableName', 'columns']
+            }
+          },
+          {
+            name: 'alter_table',
+            description: 'Altera uma tabela existente',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                tableName: {
+                  type: 'string',
+                  description: 'Nome da tabela'
+                },
+                schema: {
+                  type: 'string',
+                  description: 'Esquema da tabela',
+                  default: 'HR'
+                },
+                operation: {
+                  type: 'string',
+                  enum: ['ADD_COLUMN', 'MODIFY_COLUMN', 'DROP_COLUMN', 'ADD_CONSTRAINT', 'DROP_CONSTRAINT', 'RENAME_COLUMN'],
+                  description: 'Tipo de operação'
+                },
+                columnName: { type: 'string' },
+                newColumnName: { type: 'string' },
+                columnType: { type: 'string' },
+                columnLength: { type: 'number' },
+                notNull: { type: 'boolean' },
+                defaultValue: { type: 'string' },
+                constraintName: { type: 'string' },
+                constraintType: { type: 'string' },
+                constraintColumns: { type: 'array', items: { type: 'string' } },
+                constraintCondition: { type: 'string' },
+                referencedTable: { type: 'string' },
+                referencedColumns: { type: 'array', items: { type: 'string' } }
+              },
+              required: ['tableName', 'operation']
+            }
+          },
+          {
+            name: 'drop_table',
+            description: 'Remove uma tabela do banco de dados',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                tableName: {
+                  type: 'string',
+                  description: 'Nome da tabela'
+                },
+                schema: {
+                  type: 'string',
+                  description: 'Esquema da tabela',
+                  default: 'HR'
+                },
+                ifExists: {
+                  type: 'boolean',
+                  description: 'Remover apenas se existir',
+                  default: true
+                },
+                cascadeConstraints: {
+                  type: 'boolean',
+                  description: 'Remover constraints dependentes',
+                  default: false
+                }
+              },
+              required: ['tableName']
+            }
+          },
+          // ===== FERRAMENTAS DML =====
+          {
+            name: 'select_data',
+            description: 'Executa uma consulta SELECT no banco de dados',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                tableName: {
+                  type: 'string',
+                  description: 'Nome da tabela'
+                },
+                schema: {
+                  type: 'string',
+                  description: 'Esquema da tabela',
+                  default: 'HR'
+                },
+                columns: {
+                  type: 'array',
+                  description: 'Lista de colunas para selecionar',
+                  items: { type: 'string' },
+                  default: ['*']
+                },
+                whereClause: {
+                  type: 'string',
+                  description: 'Condição WHERE'
+                },
+                orderBy: {
+                  type: 'string',
+                  description: 'Ordenação dos resultados'
+                },
+                limit: {
+                  type: 'number',
+                  description: 'Limite de linhas'
+                },
+                offset: {
+                  type: 'number',
+                  description: 'Offset para paginação',
+                  default: 0
+                }
+              },
+              required: ['tableName']
+            }
+          },
+          {
+            name: 'insert_data',
+            description: 'Insere dados em uma tabela',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                tableName: {
+                  type: 'string',
+                  description: 'Nome da tabela'
+                },
+                schema: {
+                  type: 'string',
+                  description: 'Esquema da tabela',
+                  default: 'HR'
+                },
+                data: {
+                  type: 'object',
+                  description: 'Dados para inserir (objeto chave-valor)'
+                },
+                columns: {
+                  type: 'array',
+                  description: 'Lista de colunas',
+                  items: { type: 'string' }
+                },
+                values: {
+                  type: 'array',
+                  description: 'Lista de valores',
+                  items: { type: 'string' }
+                },
+                returning: {
+                  type: 'string',
+                  description: 'Coluna para retornar após inserção'
+                }
+              },
+              required: ['tableName']
+            }
+          },
+          {
+            name: 'update_data',
+            description: 'Atualiza dados em uma tabela',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                tableName: {
+                  type: 'string',
+                  description: 'Nome da tabela'
+                },
+                schema: {
+                  type: 'string',
+                  description: 'Esquema da tabela',
+                  default: 'HR'
+                },
+                data: {
+                  type: 'object',
+                  description: 'Dados para atualizar (objeto chave-valor)'
+                },
+                whereClause: {
+                  type: 'string',
+                  description: 'Condição WHERE'
+                },
+                returning: {
+                  type: 'string',
+                  description: 'Coluna para retornar após atualização'
+                }
+              },
+              required: ['tableName', 'data', 'whereClause']
+            }
+          },
+          {
+            name: 'delete_data',
+            description: 'Remove dados de uma tabela',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                tableName: {
+                  type: 'string',
+                  description: 'Nome da tabela'
+                },
+                schema: {
+                  type: 'string',
+                  description: 'Esquema da tabela',
+                  default: 'HR'
+                },
+                whereClause: {
+                  type: 'string',
+                  description: 'Condição WHERE (obrigatória)'
+                },
+                returning: {
+                  type: 'string',
+                  description: 'Coluna para retornar após remoção'
+                }
+              },
+              required: ['tableName', 'whereClause']
+            }
+          },
+          // ===== FERRAMENTAS DCL =====
+          {
+            name: 'create_user',
+            description: 'Cria um novo usuário no banco de dados',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                username: {
+                  type: 'string',
+                  description: 'Nome do usuário'
+                },
+                password: {
+                  type: 'string',
+                  description: 'Senha do usuário'
+                },
+                defaultTablespace: {
+                  type: 'string',
+                  description: 'Tablespace padrão',
+                  default: 'USERS'
+                },
+                temporaryTablespace: {
+                  type: 'string',
+                  description: 'Tablespace temporário',
+                  default: 'TEMP'
+                },
+                quota: {
+                  type: 'string',
+                  description: 'Quota no tablespace',
+                  default: 'UNLIMITED'
+                },
+                profile: {
+                  type: 'string',
+                  description: 'Profile do usuário',
+                  default: 'DEFAULT'
+                },
+                ifNotExists: {
+                  type: 'boolean',
+                  description: 'Criar apenas se não existir',
+                  default: true
+                }
+              },
+              required: ['username', 'password']
+            }
+          },
+          {
+            name: 'grant_privileges',
+            description: 'Concede privilégios a um usuário ou role',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                privileges: {
+                  type: 'array',
+                  description: 'Lista de privilégios',
+                  items: { type: 'string' }
+                },
+                onObject: {
+                  type: 'string',
+                  description: 'Objeto para conceder privilégios'
+                },
+                toUser: {
+                  type: 'string',
+                  description: 'Usuário de destino'
+                },
+                toRole: {
+                  type: 'string',
+                  description: 'Role de destino'
+                },
+                withGrantOption: {
+                  type: 'boolean',
+                  description: 'Com opção de conceder',
+                  default: false
+                },
+                withAdminOption: {
+                  type: 'boolean',
+                  description: 'Com opção de administrar',
+                  default: false
+                }
+              },
+              required: ['privileges']
+            }
+          },
+          {
+            name: 'revoke_privileges',
+            description: 'Revoga privilégios de um usuário ou role',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                privileges: {
+                  type: 'array',
+                  description: 'Lista de privilégios',
+                  items: { type: 'string' }
+                },
+                onObject: {
+                  type: 'string',
+                  description: 'Objeto para revogar privilégios'
+                },
+                fromUser: {
+                  type: 'string',
+                  description: 'Usuário de origem'
+                },
+                fromRole: {
+                  type: 'string',
+                  description: 'Role de origem'
+                },
+                cascade: {
+                  type: 'boolean',
+                  description: 'Cascata para constraints',
+                  default: false
+                }
+              },
+              required: ['privileges']
+            }
+          },
+          // ===== FERRAMENTAS DE AUDITORIA =====
+          {
+            name: 'generate_audit_report',
+            description: 'Gera relatório de auditoria das operações',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                startDate: {
+                  type: 'string',
+                  description: 'Data de início (ISO string)'
+                },
+                endDate: {
+                  type: 'string',
+                  description: 'Data de fim (ISO string)'
+                },
+                user: {
+                  type: 'string',
+                  description: 'Filtrar por usuário'
+                },
+                operation: {
+                  type: 'string',
+                  description: 'Filtrar por operação'
+                },
+                success: {
+                  type: 'boolean',
+                  description: 'Filtrar por sucesso/falha'
+                }
+              }
+            }
+          },
+          {
+            name: 'detect_suspicious_activity',
+            description: 'Detecta atividades suspeitas no banco de dados',
+            inputSchema: {
+              type: 'object',
+              properties: {}
+            }
           }
         ]
       };
@@ -425,6 +857,46 @@ class OracleMCPServer {
           
           case 'analyze_table':
             return await this.handleAnalyzeTable(args);
+          
+          // ===== HANDLERS DDL =====
+          case 'create_table':
+            return await this.handleCreateTable(args);
+          
+          case 'alter_table':
+            return await this.handleAlterTable(args);
+          
+          case 'drop_table':
+            return await this.handleDropTable(args);
+          
+          // ===== HANDLERS DML =====
+          case 'select_data':
+            return await this.handleSelectData(args);
+          
+          case 'insert_data':
+            return await this.handleInsertData(args);
+          
+          case 'update_data':
+            return await this.handleUpdateData(args);
+          
+          case 'delete_data':
+            return await this.handleDeleteData(args);
+          
+          // ===== HANDLERS DCL =====
+          case 'create_user':
+            return await this.handleCreateUser(args);
+          
+          case 'grant_privileges':
+            return await this.handleGrantPrivileges(args);
+          
+          case 'revoke_privileges':
+            return await this.handleRevokePrivileges(args);
+          
+          // ===== HANDLERS AUDITORIA =====
+          case 'generate_audit_report':
+            return await this.handleGenerateAuditReport(args);
+          
+          case 'detect_suspicious_activity':
+            return await this.handleDetectSuspiciousActivity(args);
           
           default:
             throw new Error(`Ferramenta desconhecida: ${name}`);
@@ -622,6 +1094,421 @@ class OracleMCPServer {
         }
       ]
     };
+  }
+
+  // ===== HANDLERS DDL =====
+
+  async handleCreateTable(args) {
+    try {
+      // Validar entrada
+      this.securityAudit.validateTableName(args.tableName);
+      if (args.columns) {
+        args.columns.forEach(col => this.ddlOperations.validateColumnDefinition(col));
+      }
+      if (args.constraints) {
+        args.constraints.forEach(constraint => this.ddlOperations.validateConstraintDefinition(constraint));
+      }
+
+      const result = await this.ddlOperations.createTable(args);
+      
+      // Log de auditoria
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'CREATE_TABLE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `CREATE TABLE ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Criação de Tabela\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'CREATE_TABLE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `CREATE TABLE ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  async handleAlterTable(args) {
+    try {
+      this.securityAudit.validateTableName(args.tableName);
+      
+      const result = await this.ddlOperations.alterTable(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'ALTER_TABLE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `ALTER TABLE ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Alteração de Tabela\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'ALTER_TABLE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `ALTER TABLE ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  async handleDropTable(args) {
+    try {
+      this.securityAudit.validateTableName(args.tableName);
+      
+      const result = await this.ddlOperations.dropTable(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'DROP_TABLE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `DROP TABLE ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Remoção de Tabela\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'DROP_TABLE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `DROP TABLE ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  // ===== HANDLERS DML =====
+
+  async handleSelectData(args) {
+    try {
+      this.securityAudit.validateTableName(args.tableName);
+      if (args.whereClause) {
+        this.securityAudit.validateWhereClause(args.whereClause);
+      }
+
+      const result = await this.dmlOperations.select(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'SELECT',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `SELECT ${args.columns?.join(', ') || '*'} FROM ${args.schema || 'HR'}.${args.tableName}${args.whereClause ? ` WHERE ${args.whereClause}` : ''}`,
+        result: { success: true, message: 'Query executada com sucesso' }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Consulta SELECT\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'SELECT',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `SELECT ${args.columns?.join(', ') || '*'} FROM ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  async handleInsertData(args) {
+    try {
+      this.securityAudit.validateTableName(args.tableName);
+      
+      const result = await this.dmlOperations.insert(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'INSERT',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `INSERT INTO ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Inserção de Dados\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'INSERT',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `INSERT INTO ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  async handleUpdateData(args) {
+    try {
+      this.securityAudit.validateTableName(args.tableName);
+      this.securityAudit.validateWhereClause(args.whereClause);
+      
+      const result = await this.dmlOperations.update(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'UPDATE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `UPDATE ${args.schema || 'HR'}.${args.tableName} WHERE ${args.whereClause}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Atualização de Dados\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'UPDATE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `UPDATE ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  async handleDeleteData(args) {
+    try {
+      this.securityAudit.validateTableName(args.tableName);
+      this.securityAudit.validateWhereClause(args.whereClause);
+      
+      const result = await this.dmlOperations.delete(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'DELETE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `DELETE FROM ${args.schema || 'HR'}.${args.tableName} WHERE ${args.whereClause}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Remoção de Dados\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'DELETE',
+        resource: `${args.schema || 'HR'}.${args.tableName}`,
+        query: `DELETE FROM ${args.schema || 'HR'}.${args.tableName}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  // ===== HANDLERS DCL =====
+
+  async handleCreateUser(args) {
+    try {
+      this.securityAudit.validateUsername(args.username);
+      this.securityAudit.validatePassword(args.password);
+      
+      const result = await this.dclOperations.createUser(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'CREATE_USER',
+        resource: args.username,
+        query: `CREATE USER ${args.username}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Criação de Usuário\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'CREATE_USER',
+        resource: args.username,
+        query: `CREATE USER ${args.username}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  async handleGrantPrivileges(args) {
+    try {
+      this.securityAudit.validatePrivileges(args.privileges);
+      
+      const result = await this.dclOperations.grantPrivileges(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'GRANT_PRIVILEGES',
+        resource: args.toUser || args.toRole || 'unknown',
+        query: `GRANT ${args.privileges.join(', ')}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Concessão de Privilégios\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'GRANT_PRIVILEGES',
+        resource: args.toUser || args.toRole || 'unknown',
+        query: `GRANT ${args.privileges?.join(', ') || 'unknown'}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  async handleRevokePrivileges(args) {
+    try {
+      this.securityAudit.validatePrivileges(args.privileges);
+      
+      const result = await this.dclOperations.revokePrivileges(args);
+      
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'REVOKE_PRIVILEGES',
+        resource: args.fromUser || args.fromRole || 'unknown',
+        query: `REVOKE ${args.privileges.join(', ')}`,
+        result: { success: true, message: result }
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `## Revogação de Privilégios\n\n${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      await this.securityAudit.logOperation({
+        user: process.env.ORACLE_USER || 'unknown',
+        operation: 'REVOKE_PRIVILEGES',
+        resource: args.fromUser || args.fromRole || 'unknown',
+        query: `REVOKE ${args.privileges?.join(', ') || 'unknown'}`,
+        result: { success: false, message: error.message }
+      });
+      throw error;
+    }
+  }
+
+  // ===== HANDLERS AUDITORIA =====
+
+  async handleGenerateAuditReport(args) {
+    try {
+      const options = {
+        startDate: args.startDate ? new Date(args.startDate) : new Date(Date.now() - 24 * 60 * 60 * 1000),
+        endDate: args.endDate ? new Date(args.endDate) : new Date(),
+        user: args.user,
+        operation: args.operation,
+        success: args.success
+      };
+
+      const result = await this.securityAudit.generateAuditReport(options);
+      
+      return {
+        content: [
+          {
+            type: 'text',
+            text: result
+          }
+        ]
+      };
+    } catch (error) {
+      throw new Error(`Erro ao gerar relatório de auditoria: ${error.message}`);
+    }
+  }
+
+  async handleDetectSuspiciousActivity(args) {
+    try {
+      const activities = await this.securityAudit.detectSuspiciousActivity();
+      
+      let result = '## Detecção de Atividades Suspeitas\n\n';
+      
+      if (activities.length === 0) {
+        result += '✅ Nenhuma atividade suspeita detectada.';
+      } else {
+        result += `⚠️ ${activities.length} atividade(s) suspeita(s) detectada(s):\n\n`;
+        activities.forEach((activity, index) => {
+          result += `${index + 1}. **${activity.type}**: ${activity.message}\n`;
+        });
+      }
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: result
+          }
+        ]
+      };
+    } catch (error) {
+      throw new Error(`Erro ao detectar atividades suspeitas: ${error.message}`);
+    }
   }
 
   async start() {

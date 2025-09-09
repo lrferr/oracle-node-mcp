@@ -1,0 +1,73 @@
+{
+  "security": {
+    "maxQueryLength": 10000,
+    "maxRowsAffected": 10000,
+    "allowedSchemas": ["HR", "SCOTT", "USUARIO_TESTE"],
+    "blockedSchemas": ["SYS", "SYSTEM", "OUTLN"],
+    "dangerousKeywords": [
+      "DROP", "DELETE", "TRUNCATE", "ALTER", "CREATE", "EXEC", "EXECUTE",
+      "SP_", "XP_", "SHUTDOWN", "RESTORE", "BACKUP", "DBCC"
+    ],
+    "injectionPatterns": [
+      "'.*or.*'.*=",
+      "'.*union.*select",
+      "'.*drop.*table",
+      "'.*delete.*from",
+      "'.*insert.*into",
+      "'.*update.*set",
+      "'.*exec.*\\(",
+      "'.*sp_.*\\(",
+      "'.*xp_.*\\(",
+      "--.*$",
+      "/\\*.*?\\*/",
+      "'.*;.*--",
+      "'.*;.*drop"
+    ]
+  },
+  "audit": {
+    "logPath": "./logs/audit.log",
+    "retentionDays": 90,
+    "suspiciousActivityThresholds": {
+      "maxFailuresPerHour": 5,
+      "maxOperationsPerHour": 100,
+      "maxConcurrentSessions": 10
+    }
+  },
+  "permissions": {
+    "ddlOperations": {
+      "allowedUsers": ["DBA", "SCHEMA_OWNER"],
+      "requireApproval": true,
+      "maxTableSize": "1GB"
+    },
+    "dmlOperations": {
+      "allowedUsers": ["DBA", "SCHEMA_OWNER", "DATA_ENTRY"],
+      "requireApproval": false,
+      "maxRowsPerOperation": 1000
+    },
+    "dclOperations": {
+      "allowedUsers": ["DBA", "SECURITY_ADMIN"],
+      "requireApproval": true,
+      "maxPrivilegesPerGrant": 10
+    }
+  },
+  "notifications": {
+    "email": {
+      "enabled": false,
+      "smtp": {
+        "host": "smtp.gmail.com",
+        "port": 587,
+        "secure": false,
+        "auth": {
+          "user": "your-email@gmail.com",
+          "pass": "your-password"
+        }
+      },
+      "recipients": ["admin@company.com", "dba@company.com"]
+    },
+    "webhook": {
+      "enabled": false,
+      "url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "events": ["suspicious_activity", "ddl_operations", "security_violations"]
+    }
+  }
+}

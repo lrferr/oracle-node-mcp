@@ -1,7 +1,7 @@
 {
   "name": "oracle-node-mcp",
   "version": "1.0.0",
-  "description": "Servidor MCP para monitoramento e interação com Oracle Database",
+  "description": "Servidor MCP completo para Oracle Database com operações DDL, DML, DCL, monitoramento e auditoria",
   "main": "src/index.js",
   "bin": {
     "oracle-mcp": "./bin/oracle-mcp-cli.js"
@@ -33,7 +33,13 @@
     "ai",
     "database-admin",
     "sql",
-    "oracle-db"
+    "oracle-db",
+    "ddl",
+    "dml",
+    "dcl",
+    "audit",
+    "security",
+    "data-management"
   ],
   "author": {
     "name": "Leandro Ferreira",
