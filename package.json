@@ -1,6 +1,6 @@
 {
   "name": "oracle-node-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Servidor MCP completo para Oracle Database com operações DDL, DML, DCL, monitoramento e auditoria",
   "main": "src/index.js",
   "bin": {
@@ -101,7 +101,7 @@
     "x64",
     "arm64"
   ],
-"eslintConfig": {
+  "eslintConfig": {
     "env": {
       "node": true,
       "es2022": true
@@ -117,9 +117,18 @@
       "no-unused-vars": "warn",
       "no-console": "off",
       "no-undef": "error",
-      "semi": ["error", "always"],
-      "quotes": ["error", "single"],
-      "indent": ["error", 2]
+      "semi": [
+        "error",
+        "always"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "indent": [
+        "error",
+        2
+      ]
     }
-  }  
-}  
+  }
+}
