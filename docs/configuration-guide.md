@@ -355,7 +355,7 @@ Analise os índices da tabela EMPLOYEES no esquema HR
 - [Documentação Oracle Node.js](https://oracle.github.io/node-oracledb/)
 - [Cursor IDE Documentation](https://cursor.sh/docs)
 - [Claude Desktop Documentation](https://claude.ai/desktop)
-- [Repositório GitHub](https://github.com/oracle-mcp/oracle-node-mcp)
+- [Repositório GitHub](https://github.com/lrferr/oracle-node-mcp)
 
 ---
 

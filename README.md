@@ -1,5 +1,10 @@
 # Oracle Node MCP Server
 
+[![npm version](https://badge.fury.io/js/oracle-node-mcp.svg)](https://badge.fury.io/js/oracle-node-mcp)
+[![Downloads](https://img.shields.io/npm/dm/oracle-node-mcp.svg)](https://www.npmjs.com/package/oracle-node-mcp)
+[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-node-mcp.svg)](https://github.com/lrferr/oracle-node-mcp/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Um servidor MCP (Model Context Protocol) para monitoramento e interação com Oracle Database, desenvolvido em Node.js.
 
 **📖 [English Version](README-EN.md) | 🇧🇷 [Versão em Português](README.md)**
@@ -55,7 +60,7 @@ npx oracle-node-mcp --help
 
 1. **Clone o repositório:**
 ```bash
-git clone https://github.com/oracle-mcp/oracle-node-mcp.git
+git clone https://github.com/lrferr/oracle-node-mcp.git
 cd oracle-node-mcp
 ```
 
@@ -581,12 +586,13 @@ Para suporte e dúvidas:
 
 ## 📚 Recursos Adicionais
 
-- [Documentação do Oracle Database](https://docs.oracle.com/en/database/)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)
-- [Repositório GitHub](https://github.com/oracle-mcp/oracle-node-mcp)
-- [Winston Logger](https://github.com/winstonjs/winston)
+- [📦 Pacote NPM](https://www.npmjs.com/package/oracle-node-mcp)
+- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-node-mcp)
+- [📖 Documentação do Oracle Database](https://docs.oracle.com/en/database/)
+- [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
+- [⚡ Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)
+- [📝 Winston Logger](https://github.com/winstonjs/winston)
 
 ---
 
-**Desenvolvido com ❤️ pela equipe Oracle MCP**
+**Desenvolvido com ❤️ por Leandro Ferreira**

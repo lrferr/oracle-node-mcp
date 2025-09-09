@@ -1,5 +1,10 @@
 # 🚀 Oracle Node MCP Server
 
+[![npm version](https://badge.fury.io/js/oracle-node-mcp.svg)](https://badge.fury.io/js/oracle-node-mcp)
+[![Downloads](https://img.shields.io/npm/dm/oracle-node-mcp.svg)](https://www.npmjs.com/package/oracle-node-mcp)
+[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-node-mcp.svg)](https://github.com/lrferr/oracle-node-mcp/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A powerful MCP (Model Context Protocol) server for Oracle Database monitoring, administration, and interaction with Claude Desktop and Cursor IDE.
 
 **📖 [English Version](README-EN.md) | 🇧🇷 [Versão em Português](README.md)**
@@ -30,7 +35,7 @@ npx oracle-node-mcp --help
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/oracle-mcp/oracle-node-mcp.git
+git clone https://github.com/lrferr/oracle-node-mcp.git
 cd oracle-node-mcp
 ```
 
@@ -251,11 +256,12 @@ Execute query: SELECT * FROM HR.EMPLOYEES WHERE department_id = 10
 
 ## 📚 Additional Resources
 
-- [Oracle Database Documentation](https://docs.oracle.com/en/database/)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
-- [Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)
-- [GitHub Repository](https://github.com/oracle-mcp/oracle-node-mcp)
-- [Winston Logger](https://github.com/winstonjs/winston)
+- [📦 NPM Package](https://www.npmjs.com/package/oracle-node-mcp)
+- [🐙 GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
+- [📖 Oracle Database Documentation](https://docs.oracle.com/en/database/)
+- [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
+- [⚡ Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)
+- [📝 Winston Logger](https://github.com/winstonjs/winston)
 
 ## 🤝 Contributing
 
@@ -280,4 +286,4 @@ If you encounter any issues:
 
 ---
 
-**Developed with ❤️ by the Oracle MCP Team**
+**Developed with ❤️ by Leandro Ferreira**

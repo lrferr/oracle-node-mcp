@@ -146,7 +146,7 @@ Execute query: SELECT * FROM HR.EMPLOYEES WHERE department_id = 10
 - [Oracle Database Documentation](https://docs.oracle.com/en/database/)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 - [Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)
-- [GitHub Repository](https://github.com/oracle-mcp/oracle-node-mcp)
+- [GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
 - [Winston Logger](https://github.com/winstonjs/winston)
 
 ## 🤝 Contributing

@@ -125,17 +125,17 @@ npx oracle-node-mcp@latest --help
   "author": {
     "name": "Oracle MCP Team",
     "email": "admin@oracle-mcp.dev",
-    "url": "https://github.com/oracle-mcp"
+    "url": "https://github.com/lrferr"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oracle-mcp/oracle-node-mcp.git"
+    "url": "https://github.com/lrferr/oracle-node-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/oracle-mcp/oracle-node-mcp/issues"
+    "url": "https://github.com/lrferr/oracle-node-mcp/issues"
   },
-  "homepage": "https://github.com/oracle-mcp/oracle-node-mcp#readme",
+  "homepage": "https://github.com/lrferr/oracle-node-mcp#readme",
   "files": [
     "src/", "bin/", "scripts/", "docs/", "examples/",
     "README.md", "LICENSE", "env.example"

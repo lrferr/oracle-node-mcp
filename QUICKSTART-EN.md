@@ -18,7 +18,7 @@ npx oracle-node-mcp --help
 
 ```bash
 # Clone repository
-git clone https://github.com/oracle-mcp/oracle-node-mcp.git
+git clone https://github.com/lrferr/oracle-node-mcp.git
 cd oracle-node-mcp
 
 # Install dependencies
@@ -221,7 +221,7 @@ npx oracle-mcp version
 - [Complete README](README-EN.md)
 - [Configuration Guide](docs/configuration-guide-en.md)
 - [Usage Examples](examples/usage-examples-en.md)
-- [GitHub Repository](https://github.com/oracle-mcp/oracle-node-mcp)
+- [GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
 
 ---
 

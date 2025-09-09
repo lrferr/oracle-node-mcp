@@ -173,7 +173,7 @@ O comando `setup-cursor` criará automaticamente a configuração MCP:
    ```
 
 3. **Configurar repositório GitHub:**
-   - Criar repositório em `github.com/oracle-mcp/oracle-node-mcp`
+   - Criar repositório em `github.com/lrferr/oracle-node-mcp`
    - Fazer push do código
    - Configurar páginas de documentação
 
