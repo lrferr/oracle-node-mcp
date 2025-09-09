@@ -96,3 +96,11 @@
     "arm64"
   ]
 }
+  "scripts": {
+    "test": "node tests/test-main.js",
+    "test:unit": "node tests/unit/test-ddl.js && node tests/unit/test-dml.js && node tests/unit/test-dcl.js",
+    "test:security": "node tests/security/test-security.js",
+    "test:integration": "node tests/integration/test-integration.js",
+    "test:performance": "node tests/performance/test-performance.js",
+    "test:quick": "node tests/unit/test-ddl.js && node tests/security/test-security.js"
+  }
