@@ -1,0 +1,19 @@
+{
+  "connection": {
+    "poolMin": 1,
+    "poolMax": 10,
+    "poolIncrement": 1,
+    "poolTimeout": 60,
+    "poolPingInterval": 60
+  },
+  "monitoring": {
+    "healthCheckInterval": 300000,
+    "schemaCheckInterval": 600000,
+    "performanceCheckInterval": 300000
+  },
+  "alerts": {
+    "tablespaceUsageThreshold": 80,
+    "connectionThreshold": 100,
+    "performanceThreshold": 1000
+  }
+}
