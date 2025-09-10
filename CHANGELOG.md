@@ -1,5 +1,17 @@
 # Changelog - Oracle MCP v1 Server
 
+## [1.5.3] - 2025-01-10
+
+### 🔧 Correções Críticas
+- **FIX**: Adicionada dependência `inherits` faltante que causava erro de módulo
+- **FIX**: Removidos emojis do CLI que causavam erro de parsing JSON no MCP
+- **FIX**: Corrigido problema de compatibilidade com Claude Desktop
+
+### 🚀 Melhorias
+- Melhorada estabilidade da comunicação MCP
+- Corrigidos problemas de dependências em produção
+- Melhorada compatibilidade com diferentes clientes MCP
+
 ## [1.5.2] - 2025-01-10
 
 ### 📚 Documentação

@@ -15,7 +15,7 @@ const projectRoot = join(__dirname, '..');
 // Função para mostrar ajuda
 function showHelp() {
   console.log(`
-🚀 Oracle Node MCP Server
+Oracle Node MCP Server
 
 USAGE:
   npx oracle-mcp [COMMAND] [OPTIONS]
@@ -135,7 +135,7 @@ async function setupClaude() {
 
 // Função para iniciar servidor
 function startServer() {
-  console.log('🚀 Iniciando Oracle MCP Server...\n');
+  console.log('Iniciando Oracle MCP Server...\n');
   
   const child = spawn('node', [mainFile], {
     stdio: 'inherit',
