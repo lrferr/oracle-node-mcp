@@ -1,9 +1,13 @@
 import oracledb from 'oracledb';
 import { Logger } from './logger.js';
+import { ConnectionManager } from './connection-manager.js';
 
 export class OracleMonitor {
-  constructor() {
+  constructor(connectionManager = null) {
     this.logger = new Logger();
+    this.connectionManager = connectionManager || new ConnectionManager();
+    
+    // Manter compatibilidade com configuração antiga
     this.connectionConfig = {
       user: process.env.ORACLE_USER,
       password: process.env.ORACLE_PASSWORD,
@@ -11,8 +15,14 @@ export class OracleMonitor {
     };
   }
 
-  async getConnection() {
+  async getConnection(connectionName = null) {
     try {
+      // Se temos um ConnectionManager, usar ele
+      if (this.connectionManager) {
+        return await this.connectionManager.getConnection(connectionName);
+      }
+      
+      // Fallback para configuração antiga
       const connection = await oracledb.getConnection(this.connectionConfig);
       return connection;
     } catch (error) {
@@ -25,14 +35,15 @@ export class OracleMonitor {
     const {
       checkConnections = true,
       checkTablespaces = true,
-      checkPerformance = true
+      checkPerformance = true,
+      connectionName = null
     } = options;
 
     let connection;
     let results = [];
 
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(connectionName);
       
       if (checkConnections) {
         const connections = await this.checkConnections(connection);
@@ -1314,5 +1325,51 @@ export class OracleMonitor {
         await connection.close();
       }
     }
+  }
+
+  // Métodos para gerenciar múltiplas conexões
+  async getAvailableConnections() {
+    if (this.connectionManager) {
+      return this.connectionManager.getAvailableConnections();
+    }
+    return [{ name: 'default', description: 'Conexão padrão', environment: 'default' }];
+  }
+
+  async testConnection(connectionName = null) {
+    if (this.connectionManager) {
+      return await this.connectionManager.testConnection(connectionName);
+    }
+    
+    // Fallback para teste de conexão padrão
+    try {
+      const connection = await this.getConnection();
+      await connection.execute('SELECT 1 FROM DUAL');
+      await connection.close();
+      return {
+        success: true,
+        message: 'Conexão padrão testada com sucesso'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: `Falha no teste da conexão: ${error.message}`
+      };
+    }
+  }
+
+  async testAllConnections() {
+    if (this.connectionManager) {
+      return await this.connectionManager.testAllConnections();
+    }
+    
+    return { default: await this.testConnection() };
+  }
+
+  async getConnectionsStatus() {
+    if (this.connectionManager) {
+      return await this.connectionManager.getConnectionsStatus();
+    }
+    
+    return { default: { active: false, error: 'ConnectionManager não disponível' } };
   }
 }

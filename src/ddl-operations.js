@@ -1,16 +1,28 @@
 import { Logger } from './logger.js';
 import oracledb from 'oracledb';
+import { ConnectionManager } from './connection-manager.js';
 
 export class DDLOperations {
-  constructor(connectionConfig) {
+  constructor(connectionConfig = null, connectionManager = null) {
     this.logger = new Logger();
     this.connectionConfig = connectionConfig;
+    this.connectionManager = connectionManager || new ConnectionManager();
   }
 
-  async getConnection() {
+  async getConnection(connectionName = null) {
     try {
-      const connection = await oracledb.getConnection(this.connectionConfig);
-      return connection;
+      // Se temos um ConnectionManager, usar ele
+      if (this.connectionManager) {
+        return await this.connectionManager.getConnection(connectionName);
+      }
+      
+      // Fallback para configuração antiga
+      if (this.connectionConfig) {
+        const connection = await oracledb.getConnection(this.connectionConfig);
+        return connection;
+      }
+      
+      throw new Error('Nenhuma configuração de conexão disponível');
     } catch (error) {
       this.logger.error('Erro ao conectar com Oracle:', error);
       throw new Error(`Falha na conexão: ${error.message}`);
@@ -26,7 +38,8 @@ export class DDLOperations {
       columns = [],
       constraints = [],
       tablespace = 'USERS',
-      ifNotExists = true
+      ifNotExists = true,
+      connectionName = null
     } = options;
 
     if (!tableName || columns.length === 0) {
@@ -35,7 +48,7 @@ export class DDLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(connectionName);
 
       // Verificar se a tabela já existe
       if (ifNotExists) {
@@ -110,7 +123,8 @@ export class DDLOperations {
       constraintColumns,
       constraintCondition,
       referencedTable,
-      referencedColumns
+      referencedColumns,
+      connectionName = null
     } = options;
 
     if (!tableName || !operation) {
@@ -119,7 +133,7 @@ export class DDLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(connectionName);
 
       let alterQuery = `ALTER TABLE ${schema}.${tableName} `;
 
@@ -217,7 +231,8 @@ export class DDLOperations {
       tableName,
       schema = 'HR',
       ifExists = true,
-      cascadeConstraints = false
+      cascadeConstraints = false,
+      connectionName = null
     } = options;
 
     if (!tableName) {
@@ -226,7 +241,7 @@ export class DDLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(connectionName);
 
       // Verificar se a tabela existe
       if (ifExists) {

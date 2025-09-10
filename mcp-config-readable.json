@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "npx",
+      "args": ["oracle-node-mcp"],
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CONNECTIONS": "{\n  \"connections\": {\n    \"production\": {\n      \"user\": \"HR_PROD\",\n      \"password\": \"prod_password\",\n      \"connectString\": \"prod-server:1521/PROD\",\n      \"description\": \"Production Database\",\n      \"environment\": \"production\",\n      \"poolMin\": 2,\n      \"poolMax\": 20,\n      \"poolIncrement\": 2\n    },\n    \"development\": {\n      \"user\": \"HR_DEV\",\n      \"password\": \"dev_password\",\n      \"connectString\": \"dev-server:1521/DEV\",\n      \"description\": \"Development Database\",\n      \"environment\": \"development\",\n      \"poolMin\": 1,\n      \"poolMax\": 10,\n      \"poolIncrement\": 1\n    },\n    \"testing\": {\n      \"user\": \"HR_TEST\",\n      \"password\": \"test_password\",\n      \"connectString\": \"test-server:1521/TEST\",\n      \"description\": \"Testing Database\",\n      \"environment\": \"testing\",\n      \"poolMin\": 1,\n      \"poolMax\": 5,\n      \"poolIncrement\": 1\n    }\n  },\n  \"defaultConnection\": \"development\",\n  \"monitoring\": {\n    \"healthCheckInterval\": 300000,\n    \"schemaCheckInterval\": 600000,\n    \"performanceCheckInterval\": 300000\n  },\n  \"alerts\": {\n    \"tablespaceUsageThreshold\": 80,\n    \"connectionThreshold\": 100,\n    \"performanceThreshold\": 1000\n  }\n}"
+      }
+    }
+  }
+}

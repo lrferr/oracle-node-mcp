@@ -24,6 +24,11 @@
     "test-mcp-config": "node scripts/test-mcp-config.js",
     "setup-cursor": "node scripts/setup-cursor.bat",
     "quick-setup": "node scripts/quick-setup.js",
+    "setup-multi-connections": "node scripts/setup-multi-connections.js",
+    "demo-multi-connections": "node examples/multi-connection-demo.js",
+    "setup-multi-connections-en": "node scripts/setup-multi-connections.js",
+    "demo-multi-connections-en": "node examples/multi-connection-demo-en.js",
+    "generate-mcp-config": "node scripts/generate-mcp-config.js",
     "prepublishOnly": "npm test && npm run lint",
     "postinstall": "node scripts/postinstall.js"
   },

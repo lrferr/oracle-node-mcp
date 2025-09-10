@@ -11,6 +11,7 @@ import { DDLOperations } from './ddl-operations.js';
 import { DMLOperations } from './dml-operations.js';
 import { DCLOperations } from './dcl-operations.js';
 import { SecurityAudit } from './security-audit.js';
+import { ConnectionManager } from './connection-manager.js';
 import dotenv from 'dotenv';
 
 // Carregar variáveis de ambiente
@@ -30,21 +31,26 @@ class OracleMCPServer {
       }
     );
 
-    this.oracleMonitor = new OracleMonitor();
-    this.migrationValidator = new MigrationValidator();
-    this.notificationService = new NotificationService();
     this.logger = new Logger();
     
-    // Inicializar novos módulos
+    // Inicializar ConnectionManager para múltiplas conexões
+    this.connectionManager = new ConnectionManager();
+    
+    // Inicializar módulos com ConnectionManager
+    this.oracleMonitor = new OracleMonitor(this.connectionManager);
+    this.migrationValidator = new MigrationValidator();
+    this.notificationService = new NotificationService();
+    
+    // Manter compatibilidade com configuração antiga
     this.connectionConfig = {
       user: process.env.ORACLE_USER,
       password: process.env.ORACLE_PASSWORD,
       connectString: `${process.env.ORACLE_HOST}:${process.env.ORACLE_PORT}/${process.env.ORACLE_SERVICE_NAME}`
     };
     
-    this.ddlOperations = new DDLOperations(this.connectionConfig);
-    this.dmlOperations = new DMLOperations(this.connectionConfig);
-    this.dclOperations = new DCLOperations(this.connectionConfig);
+    this.ddlOperations = new DDLOperations(this.connectionConfig, this.connectionManager);
+    this.dmlOperations = new DMLOperations(this.connectionConfig, this.connectionManager);
+    this.dclOperations = new DCLOperations(this.connectionConfig, this.connectionManager);
     this.securityAudit = new SecurityAudit();
 
     this.setupHandlers();
@@ -75,6 +81,11 @@ class OracleMCPServer {
                   type: 'boolean',
                   description: 'Verificar métricas de performance',
                   default: true
+                },
+                connectionName: {
+                  type: 'string',
+                  description: 'Nome da conexão para usar (opcional)',
+                  default: null
                 }
               }
             }
@@ -800,6 +811,51 @@ class OracleMCPServer {
             description: 'Detecta atividades suspeitas no banco de dados',
             inputSchema: {
               type: 'object',
+              properties: {
+                connectionName: {
+                  type: 'string',
+                  description: 'Nome da conexão para usar (opcional)',
+                  default: null
+                }
+              }
+            }
+          },
+          // ===== FERRAMENTAS DE MÚLTIPLAS CONEXÕES =====
+          {
+            name: 'list_connections',
+            description: 'Lista todas as conexões Oracle configuradas',
+            inputSchema: {
+              type: 'object',
+              properties: {}
+            }
+          },
+          {
+            name: 'test_connection',
+            description: 'Testa uma conexão específica',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                connectionName: {
+                  type: 'string',
+                  description: 'Nome da conexão para testar',
+                  default: null
+                }
+              }
+            }
+          },
+          {
+            name: 'test_all_connections',
+            description: 'Testa todas as conexões configuradas',
+            inputSchema: {
+              type: 'object',
+              properties: {}
+            }
+          },
+          {
+            name: 'get_connections_status',
+            description: 'Obtém o status de todas as conexões ativas',
+            inputSchema: {
+              type: 'object',
               properties: {}
             }
           }
@@ -897,6 +953,19 @@ class OracleMCPServer {
           
           case 'detect_suspicious_activity':
             return await this.handleDetectSuspiciousActivity(args);
+          
+          // ===== HANDLERS MÚLTIPLAS CONEXÕES =====
+          case 'list_connections':
+            return await this.handleListConnections();
+          
+          case 'test_connection':
+            return await this.handleTestConnection(args);
+          
+          case 'test_all_connections':
+            return await this.handleTestAllConnections();
+          
+          case 'get_connections_status':
+            return await this.handleGetConnectionsStatus();
           
           default:
             throw new Error(`Ferramenta desconhecida: ${name}`);
@@ -1483,7 +1552,7 @@ class OracleMCPServer {
     }
   }
 
-  async handleDetectSuspiciousActivity() {
+  async handleDetectSuspiciousActivity(args) {
     try {
       const activities = await this.securityAudit.detectSuspiciousActivity();
       
@@ -1508,6 +1577,144 @@ class OracleMCPServer {
       };
     } catch (error) {
       throw new Error(`Erro ao detectar atividades suspeitas: ${error.message}`);
+    }
+  }
+
+  // ===== HANDLERS MÚLTIPLAS CONEXÕES =====
+
+  async handleListConnections() {
+    try {
+      const connections = await this.oracleMonitor.getAvailableConnections();
+      
+      let result = '## Conexões Oracle Configuradas\n\n';
+      
+      if (connections.length === 0) {
+        result += '❌ Nenhuma conexão configurada.';
+      } else {
+        connections.forEach((conn, index) => {
+          result += `${index + 1}. **${conn.name}**\n`;
+          result += `   - Descrição: ${conn.description}\n`;
+          result += `   - Ambiente: ${conn.environment}\n\n`;
+        });
+      }
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: result
+          }
+        ]
+      };
+    } catch (error) {
+      throw new Error(`Erro ao listar conexões: ${error.message}`);
+    }
+  }
+
+  async handleTestConnection(args) {
+    try {
+      const { connectionName = null } = args;
+      const result = await this.oracleMonitor.testConnection(connectionName);
+      
+      let message = `## Teste de Conexão\n\n`;
+      
+      if (result.success) {
+        message += `✅ **${result.message}**\n\n`;
+        if (result.connection) {
+          message += `**Detalhes da Conexão:**\n`;
+          message += `- Host: ${result.connection.connectString}\n`;
+          message += `- Usuário: ${result.connection.user}\n`;
+        }
+      } else {
+        message += `❌ **${result.message}**\n\n`;
+        if (result.error) {
+          message += `**Erro:** ${result.error}\n`;
+        }
+      }
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: message
+          }
+        ]
+      };
+    } catch (error) {
+      throw new Error(`Erro ao testar conexão: ${error.message}`);
+    }
+  }
+
+  async handleTestAllConnections() {
+    try {
+      const results = await this.oracleMonitor.testAllConnections();
+      
+      let message = '## Teste de Todas as Conexões\n\n';
+      
+      for (const [connName, result] of Object.entries(results)) {
+        message += `### ${connName}\n`;
+        
+        if (result.success) {
+          message += `✅ **${result.message}**\n\n`;
+        } else {
+          message += `❌ **${result.message}**\n`;
+          if (result.error) {
+            message += `**Erro:** ${result.error}\n`;
+          }
+          message += '\n';
+        }
+      }
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: message
+          }
+        ]
+      };
+    } catch (error) {
+      throw new Error(`Erro ao testar todas as conexões: ${error.message}`);
+    }
+  }
+
+  async handleGetConnectionsStatus() {
+    try {
+      const status = await this.oracleMonitor.getConnectionsStatus();
+      
+      let message = '## Status das Conexões Ativas\n\n';
+      
+      for (const [connName, connStatus] of Object.entries(status)) {
+        message += `### ${connName}\n`;
+        
+        if (connStatus.active) {
+          message += `✅ **Ativa**\n`;
+          if (connStatus.info) {
+            message += `- Database: ${connStatus.info[1]}\n`;
+            message += `- Host: ${connStatus.info[2]}\n`;
+            message += `- IP: ${connStatus.info[3]}\n`;
+            message += `- Usuário: ${connStatus.info[4]}\n`;
+            message += `- Hora Atual: ${connStatus.info[5]}\n`;
+          }
+        } else {
+          message += `❌ **Inativa**\n`;
+          if (connStatus.error) {
+            message += `**Erro:** ${connStatus.error}\n`;
+          }
+        }
+        message += '\n';
+      }
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: message
+          }
+        ]
+      };
+    } catch (error) {
+      throw new Error(`Erro ao obter status das conexões: ${error.message}`);
     }
   }
 

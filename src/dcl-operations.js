@@ -1,16 +1,28 @@
 import { Logger } from './logger.js';
 import oracledb from 'oracledb';
+import { ConnectionManager } from './connection-manager.js';
 
 export class DCLOperations {
-  constructor(connectionConfig) {
+  constructor(connectionConfig = null, connectionManager = null) {
     this.logger = new Logger();
     this.connectionConfig = connectionConfig;
+    this.connectionManager = connectionManager || new ConnectionManager();
   }
 
-  async getConnection() {
+  async getConnection(connectionName = null) {
     try {
-      const connection = await oracledb.getConnection(this.connectionConfig);
-      return connection;
+      // Se temos um ConnectionManager, usar ele
+      if (this.connectionManager) {
+        return await this.connectionManager.getConnection(connectionName);
+      }
+      
+      // Fallback para configuração antiga
+      if (this.connectionConfig) {
+        const connection = await oracledb.getConnection(this.connectionConfig);
+        return connection;
+      }
+      
+      throw new Error('Nenhuma configuração de conexão disponível');
     } catch (error) {
       this.logger.error('Erro ao conectar com Oracle:', error);
       throw new Error(`Falha na conexão: ${error.message}`);
@@ -36,7 +48,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Verificar se o usuário já existe
       if (ifNotExists) {
@@ -89,7 +101,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       const alterClauses = [];
 
@@ -151,7 +163,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Verificar se o usuário existe
       if (ifExists) {
@@ -204,7 +216,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       const privilegeList = privileges.join(', ');
       const grantee = toUser ? `TO ${toUser}` : `TO ROLE ${toRole}`;
@@ -256,7 +268,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       const privilegeList = privileges.join(', ');
       const grantee = fromUser ? `FROM ${fromUser}` : `FROM ROLE ${fromRole}`;
@@ -295,7 +307,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Verificar se a role já existe
       if (ifNotExists) {
@@ -334,7 +346,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Verificar se a role existe
       if (ifExists) {
@@ -379,7 +391,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       const grantee = toUser ? `TO ${toUser}` : `TO ROLE ${toRole}`;
       const adminOption = withAdminOption ? 'WITH ADMIN OPTION' : '';
@@ -419,7 +431,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       const grantee = fromUser ? `FROM ${fromUser}` : `FROM ROLE ${fromRole}`;
 
@@ -461,7 +473,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Verificar se o profile já existe
       if (ifNotExists) {
@@ -527,7 +539,7 @@ export class DCLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Verificar se o profile existe
       if (ifExists) {

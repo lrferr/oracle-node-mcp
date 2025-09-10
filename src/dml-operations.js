@@ -1,16 +1,28 @@
 import { Logger } from './logger.js';
 import oracledb from 'oracledb';
+import { ConnectionManager } from './connection-manager.js';
 
 export class DMLOperations {
-  constructor(connectionConfig) {
+  constructor(connectionConfig = null, connectionManager = null) {
     this.logger = new Logger();
     this.connectionConfig = connectionConfig;
+    this.connectionManager = connectionManager || new ConnectionManager();
   }
 
-  async getConnection() {
+  async getConnection(connectionName = null) {
     try {
-      const connection = await oracledb.getConnection(this.connectionConfig);
-      return connection;
+      // Se temos um ConnectionManager, usar ele
+      if (this.connectionManager) {
+        return await this.connectionManager.getConnection(connectionName);
+      }
+      
+      // Fallback para configuração antiga
+      if (this.connectionConfig) {
+        const connection = await oracledb.getConnection(this.connectionConfig);
+        return connection;
+      }
+      
+      throw new Error('Nenhuma configuração de conexão disponível');
     } catch (error) {
       this.logger.error('Erro ao conectar com Oracle:', error);
       throw new Error(`Falha na conexão: ${error.message}`);
@@ -29,7 +41,8 @@ export class DMLOperations {
       limit = null,
       offset = 0,
       groupBy = '',
-      having = ''
+      having = '',
+      connectionName = null
     } = options;
 
     if (!tableName) {
@@ -38,7 +51,7 @@ export class DMLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Construir query SELECT
       const columnList = Array.isArray(columns) ? columns.join(', ') : columns;
@@ -107,7 +120,7 @@ export class DMLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       let query;
       let params = {};
@@ -178,7 +191,7 @@ export class DMLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       const columnNames = columns.length > 0 ? columns : Object.keys(dataArray[0]);
       const valuePlaceholders = columnNames.map((_, index) => `:val${index}`);
@@ -237,7 +250,7 @@ export class DMLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Construir SET clause
       const setClauses = Object.keys(data).map((col, index) => `${col} = :val${index}`);
@@ -303,7 +316,7 @@ export class DMLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       let query = `DELETE FROM ${schema}.${tableName} WHERE ${whereClause}`;
 
@@ -360,7 +373,7 @@ export class DMLOperations {
 
     let connection;
     try {
-      connection = await this.getConnection();
+      connection = await this.getConnection(options.connectionName);
 
       // Construir cláusula MATCH
       const matchCondition = matchColumns.map(col => `t.${col} = s.${col}`).join(' AND ');

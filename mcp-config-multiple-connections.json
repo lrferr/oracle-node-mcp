@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "oracle-monitor-single": {
+      "command": "npx",
+      "args": ["oracle-node-mcp"],
+      "env": {
+        "ORACLE_HOST": "seu-servidor-oracle.com",
+        "ORACLE_PORT": "1521",
+        "ORACLE_SERVICE_NAME": "SEU_SERVICE",
+        "ORACLE_USER": "seu_usuario",
+        "ORACLE_PASSWORD": "sua_senha",
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info"
+      }
+    },
+    "oracle-monitor-multiple": {
+      "command": "npx",
+      "args": ["oracle-node-mcp"],
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor-multiple",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info"
+      }
+    }
+  }
+}

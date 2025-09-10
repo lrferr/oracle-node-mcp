@@ -1,0 +1,104 @@
+{
+  "connections": {
+    "production": {
+      "user": "HR_PROD",
+      "password": "prod_password_here",
+      "connectString": "prod-oracle-server.company.com:1521/PROD",
+      "description": "Banco de Produção - Sistema Principal",
+      "environment": "production",
+      "poolMin": 5,
+      "poolMax": 50,
+      "poolIncrement": 5,
+      "poolTimeout": 60,
+      "poolPingInterval": 60
+    },
+    "staging": {
+      "user": "HR_STAGING",
+      "password": "staging_password_here",
+      "connectString": "staging-oracle-server.company.com:1521/STAGING",
+      "description": "Banco de Staging - Pré-produção",
+      "environment": "staging",
+      "poolMin": 2,
+      "poolMax": 20,
+      "poolIncrement": 2,
+      "poolTimeout": 60,
+      "poolPingInterval": 60
+    },
+    "development": {
+      "user": "HR_DEV",
+      "password": "dev_password_here",
+      "connectString": "dev-oracle-server.company.com:1521/DEV",
+      "description": "Banco de Desenvolvimento",
+      "environment": "development",
+      "poolMin": 1,
+      "poolMax": 10,
+      "poolIncrement": 1,
+      "poolTimeout": 60,
+      "poolPingInterval": 60
+    },
+    "testing": {
+      "user": "HR_TEST",
+      "password": "test_password_here",
+      "connectString": "test-oracle-server.company.com:1521/TEST",
+      "description": "Banco de Testes Automatizados",
+      "environment": "testing",
+      "poolMin": 1,
+      "poolMax": 5,
+      "poolIncrement": 1,
+      "poolTimeout": 30,
+      "poolPingInterval": 30
+    },
+    "backup": {
+      "user": "HR_BACKUP",
+      "password": "backup_password_here",
+      "connectString": "backup-oracle-server.company.com:1521/BACKUP",
+      "description": "Banco de Backup - Somente Leitura",
+      "environment": "backup",
+      "poolMin": 1,
+      "poolMax": 5,
+      "poolIncrement": 1,
+      "poolTimeout": 60,
+      "poolPingInterval": 60
+    },
+    "analytics": {
+      "user": "HR_ANALYTICS",
+      "password": "analytics_password_here",
+      "connectString": "analytics-oracle-server.company.com:1521/ANALYTICS",
+      "description": "Banco de Analytics - Data Warehouse",
+      "environment": "analytics",
+      "poolMin": 2,
+      "poolMax": 15,
+      "poolIncrement": 2,
+      "poolTimeout": 120,
+      "poolPingInterval": 120
+    }
+  },
+  "defaultConnection": "development",
+  "monitoring": {
+    "healthCheckInterval": 300000,
+    "schemaCheckInterval": 600000,
+    "performanceCheckInterval": 300000,
+    "connectionCheckInterval": 60000
+  },
+  "alerts": {
+    "tablespaceUsageThreshold": 80,
+    "connectionThreshold": 100,
+    "performanceThreshold": 1000,
+    "enableEmailAlerts": true,
+    "alertEmail": "dba@company.com"
+  },
+  "security": {
+    "enableAuditLogging": true,
+    "sensitiveTables": [
+      "USERS",
+      "ACCOUNTS", 
+      "TRANSACTIONS",
+      "PERSONAL_DATA"
+    ],
+    "restrictedOperations": [
+      "DROP_TABLE",
+      "DROP_USER",
+      "ALTER_SYSTEM"
+    ]
+  }
+}
