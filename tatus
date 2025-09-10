@@ -1,3 +1,5 @@
-[33m7a74989[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m docs: add GitHub setup guide with complete instructions
-[33maba70f8[m feat: add GitHub configuration and templates
-[33m2b5984f[m feat: initial release of Oracle Node MCP Server v1.0.0
+[33mee483a1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m security: remove sensitive credentials from quick-setup.js
+[33m7ff9962[m[33m ([m[1;31morigin/main[m[33m)[m chore: bump version to 1.2.0 for multiple connections feature
+[33ma3bdfa4[m feat: implement multiple Oracle connections support
+[33m8083166[m[33m ([m[1;33mtag: [m[1;33mv1.1.2[m[33m)[m 1.1.2
+[33mcc08916[m fix: update GitHub Actions workflow to use NPM_TOKEN
