@@ -1,5 +1,26 @@
 # Changelog - Oracle MCP v1 Server
 
+## [1.5.2] - 2025-01-10
+
+### 📚 Documentação
+- **NEW**: Guia completo de troubleshooting em português e inglês
+- **NEW**: Script de diagnóstico automatizado `diagnose-connectivity.js`
+- **NEW**: Scripts de instalação automática do Oracle Instant Client
+- **NEW**: Configuração de exemplo com troubleshooting
+- **NEW**: Comando `npm run diagnose` para diagnóstico rápido
+
+### 🔧 Melhorias
+- Adicionado suporte a diagnóstico automatizado de problemas de conectividade
+- Melhorada documentação com soluções passo-a-passo para erros comuns
+- Adicionados scripts de instalação para Windows, Linux e macOS
+- Incluída configuração de exemplo com ORACLE_CLIENT_PATH
+
+### 🛠️ Ferramentas
+- Script PowerShell para instalação automática no Windows
+- Script Bash para instalação automática no Linux/macOS
+- Script de diagnóstico que identifica problemas automaticamente
+- Configuração MCP de exemplo com troubleshooting
+
 ## [1.5.1] - 2025-01-10
 
 ### 🔧 Correções
