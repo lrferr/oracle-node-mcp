@@ -135,7 +135,7 @@ async function setupClaude() {
 
 // Função para iniciar servidor
 function startServer() {
-  console.log('Iniciando Oracle MCP Server...\n');
+  // Não enviar mensagens para stdout (usado pelo MCP)
   
   const child = spawn('node', [mainFile], {
     stdio: 'inherit',
@@ -147,25 +147,23 @@ function startServer() {
   });
 
   child.on('error', (error) => {
-    console.error('❌ Erro ao iniciar Oracle MCP Server:', error.message);
+    console.error('Erro ao iniciar Oracle MCP Server:', error.message);
     process.exit(1);
   });
 
   child.on('exit', (code) => {
     if (code !== 0) {
-      console.error(`❌ Oracle MCP Server encerrado com código ${code}`);
+      console.error(`Oracle MCP Server encerrado com código ${code}`);
       process.exit(code);
     }
   });
 
   // Tratar sinais de interrupção
   process.on('SIGINT', () => {
-    console.log('\n🛑 Encerrando Oracle MCP Server...');
     child.kill('SIGINT');
   });
 
   process.on('SIGTERM', () => {
-    console.log('\n🛑 Encerrando Oracle MCP Server...');
     child.kill('SIGTERM');
   });
 }

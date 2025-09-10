@@ -1,5 +1,18 @@
 # Changelog - Oracle MCP v1 Server
 
+## [1.5.4] - 2025-01-10
+
+### 🔧 Correções Críticas
+- **FIX**: Removidos todos os console.log do CLI que causavam erro de parsing JSON
+- **FIX**: Corrigido problema de módulos não encontrados no pacote NPM
+- **FIX**: Melhorada compatibilidade com comunicação MCP
+- **FIX**: Removidos emojis de todas as mensagens de erro
+
+### 🚀 Melhorias
+- CLI completamente silencioso para comunicação MCP
+- Melhorada estabilidade da comunicação com Claude Desktop
+- Corrigidos problemas de dependências em produção
+
 ## [1.5.3] - 2025-01-10
 
 ### 🔧 Correções Críticas
