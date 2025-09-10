@@ -1,7 +1,7 @@
 import oracledb from 'oracledb';
 import { Logger } from './logger.js';
 import fs from 'fs';
-import path from 'path';
+import os from 'os';
 
 export class ConnectionManager {
   constructor(configPath = './config/multi-connections.json') {
@@ -9,7 +9,12 @@ export class ConnectionManager {
     this.connections = new Map();
     this.configPath = configPath;
     this.config = null;
+    this.oracleClientInitialized = false;
     this.loadConfig();
+    // Inicializar Oracle Client de forma assíncrona para evitar bloqueios
+    this.initializeOracleClient().catch(error => {
+      this.logger.warn('Erro ao inicializar Oracle Client:', error.message);
+    });
   }
 
   loadConfig() {
@@ -32,6 +37,161 @@ export class ConnectionManager {
         this.logger.error('Erro ao carregar configuração de conexões:', envError);
         throw new Error(`Falha ao carregar configuração: ${envError.message}`);
       }
+    }
+  }
+
+  /**
+   * Detecta possíveis localizações do Oracle Instant Client
+   */
+  detectOracleClientPaths() {
+    const possiblePaths = [];
+    const platform = os.platform();
+    
+    // Caminhos comuns do Oracle Instant Client
+    if (platform === 'win32') {
+      possiblePaths.push(
+        process.env.ORACLE_CLIENT_PATH,
+        'C:\\oracle\\instantclient_21_8',
+        'C:\\oracle\\instantclient_21_7',
+        'C:\\oracle\\instantclient_21_6',
+        'C:\\oracle\\instantclient_21_5',
+        'C:\\oracle\\instantclient_21_4',
+        'C:\\oracle\\instantclient_21_3',
+        'C:\\oracle\\instantclient_21_2',
+        'C:\\oracle\\instantclient_21_1',
+        'C:\\oracle\\instantclient_19_8',
+        'C:\\oracle\\instantclient_19_7',
+        'C:\\oracle\\instantclient_19_6',
+        'C:\\oracle\\instantclient_19_5',
+        'C:\\oracle\\instantclient_19_4',
+        'C:\\oracle\\instantclient_19_3',
+        'C:\\oracle\\instantclient_19_2',
+        'C:\\oracle\\instantclient_19_1',
+        'C:\\oracle\\instantclient_18_8',
+        'C:\\oracle\\instantclient_18_7',
+        'C:\\oracle\\instantclient_18_6',
+        'C:\\oracle\\instantclient_18_5',
+        'C:\\oracle\\instantclient_18_4',
+        'C:\\oracle\\instantclient_18_3',
+        'C:\\oracle\\instantclient_18_2',
+        'C:\\oracle\\instantclient_18_1',
+        'C:\\oracle\\instantclient_12_2',
+        'C:\\oracle\\instantclient_12_1',
+        'C:\\oracle\\instantclient_11_2'
+      );
+    } else if (platform === 'darwin') {
+      possiblePaths.push(
+        process.env.ORACLE_CLIENT_PATH,
+        '/opt/oracle/instantclient_21_8',
+        '/opt/oracle/instantclient_21_7',
+        '/opt/oracle/instantclient_21_6',
+        '/opt/oracle/instantclient_21_5',
+        '/opt/oracle/instantclient_21_4',
+        '/opt/oracle/instantclient_21_3',
+        '/opt/oracle/instantclient_21_2',
+        '/opt/oracle/instantclient_21_1',
+        '/opt/oracle/instantclient_19_8',
+        '/opt/oracle/instantclient_19_7',
+        '/opt/oracle/instantclient_19_6',
+        '/opt/oracle/instantclient_19_5',
+        '/opt/oracle/instantclient_19_4',
+        '/opt/oracle/instantclient_19_3',
+        '/opt/oracle/instantclient_19_2',
+        '/opt/oracle/instantclient_19_1',
+        '/opt/oracle/instantclient_18_8',
+        '/opt/oracle/instantclient_18_7',
+        '/opt/oracle/instantclient_18_6',
+        '/opt/oracle/instantclient_18_5',
+        '/opt/oracle/instantclient_18_4',
+        '/opt/oracle/instantclient_18_3',
+        '/opt/oracle/instantclient_18_2',
+        '/opt/oracle/instantclient_18_1',
+        '/opt/oracle/instantclient_12_2',
+        '/opt/oracle/instantclient_12_1',
+        '/opt/oracle/instantclient_11_2'
+      );
+    } else {
+      // Linux
+      possiblePaths.push(
+        process.env.ORACLE_CLIENT_PATH,
+        '/opt/oracle/instantclient_21_8',
+        '/opt/oracle/instantclient_21_7',
+        '/opt/oracle/instantclient_21_6',
+        '/opt/oracle/instantclient_21_5',
+        '/opt/oracle/instantclient_21_4',
+        '/opt/oracle/instantclient_21_3',
+        '/opt/oracle/instantclient_21_2',
+        '/opt/oracle/instantclient_21_1',
+        '/opt/oracle/instantclient_19_8',
+        '/opt/oracle/instantclient_19_7',
+        '/opt/oracle/instantclient_19_6',
+        '/opt/oracle/instantclient_19_5',
+        '/opt/oracle/instantclient_19_4',
+        '/opt/oracle/instantclient_19_3',
+        '/opt/oracle/instantclient_19_2',
+        '/opt/oracle/instantclient_19_1',
+        '/opt/oracle/instantclient_18_8',
+        '/opt/oracle/instantclient_18_7',
+        '/opt/oracle/instantclient_18_6',
+        '/opt/oracle/instantclient_18_5',
+        '/opt/oracle/instantclient_18_4',
+        '/opt/oracle/instantclient_18_3',
+        '/opt/oracle/instantclient_18_2',
+        '/opt/oracle/instantclient_18_1',
+        '/opt/oracle/instantclient_12_2',
+        '/opt/oracle/instantclient_12_1',
+        '/opt/oracle/instantclient_11_2'
+      );
+    }
+    
+    return possiblePaths.filter(path => path && fs.existsSync(path));
+  }
+
+  /**
+   * Inicializa o Oracle Client no modo Thick se disponível
+   */
+  async initializeOracleClient() {
+    if (this.oracleClientInitialized) {
+      return;
+    }
+
+    try {
+      // Verificar se já está em modo Thick
+      if (oracledb.thin === false) {
+        this.logger.info('Oracle Client já está em modo Thick');
+        this.oracleClientInitialized = true;
+        return;
+      }
+
+      // Tentar encontrar o Oracle Instant Client
+      const clientPaths = this.detectOracleClientPaths();
+      
+      if (clientPaths.length === 0) {
+        this.logger.warn('Oracle Instant Client não encontrado. Continuando em modo Thin.');
+        this.logger.warn('Para suporte completo ao Oracle 19c, instale o Oracle Instant Client.');
+        return;
+      }
+
+      // Tentar inicializar com cada caminho encontrado
+      for (const clientPath of clientPaths) {
+        try {
+          this.logger.info(`Tentando inicializar Oracle Client com: ${clientPath}`);
+          oracledb.initOracleClient({ libDir: clientPath });
+          this.logger.info(`Oracle Client inicializado com sucesso em modo Thick: ${clientPath}`);
+          this.oracleClientInitialized = true;
+          return;
+        } catch (error) {
+          this.logger.debug(`Falha ao inicializar com ${clientPath}: ${error.message}`);
+          continue;
+        }
+      }
+
+      this.logger.warn('Não foi possível inicializar o Oracle Client em modo Thick. Continuando em modo Thin.');
+      this.logger.warn('Para suporte completo ao Oracle 19c, verifique a instalação do Oracle Instant Client.');
+      
+    } catch (error) {
+      this.logger.warn(`Erro ao inicializar Oracle Client: ${error.message}`);
+      this.logger.warn('Continuando em modo Thin. Para suporte completo ao Oracle 19c, instale o Oracle Instant Client.');
     }
   }
 
@@ -67,6 +227,33 @@ export class ConnectionManager {
       this.logger.info(`Conexão '${connName}' estabelecida com sucesso`);
       return connection;
     } catch (error) {
+      // Verificar se é erro de compatibilidade de senha (Oracle 19c)
+      if (error.message.includes('password verifier type 0x939') || 
+          error.message.includes('NJS-116')) {
+        this.logger.warn(`Erro de compatibilidade detectado para '${connName}': ${error.message}`);
+        this.logger.info('Tentando inicializar modo Thick para resolver compatibilidade com Oracle 19c...');
+        
+        try {
+          // Tentar inicializar modo Thick se ainda não foi feito
+          if (!this.oracleClientInitialized) {
+            await this.initializeOracleClient();
+          }
+          
+          // Tentar conexão novamente
+          const connConfig = this.config.connections[connName];
+          const connection = await oracledb.getConnection(connConfig);
+          
+          // Armazenar no cache
+          this.connections.set(connName, connection);
+          
+          this.logger.info(`Conexão '${connName}' estabelecida com sucesso usando modo Thick`);
+          return connection;
+        } catch (thickError) {
+          this.logger.error(`Erro ao conectar com '${connName}' mesmo em modo Thick:`, thickError);
+          throw new Error(`Falha na conexão '${connName}' (modo Thick): ${thickError.message}`);
+        }
+      }
+      
       this.logger.error(`Erro ao conectar com '${connName}':`, error);
       throw new Error(`Falha na conexão '${connName}': ${error.message}`);
     }
@@ -123,20 +310,41 @@ export class ConnectionManager {
     return this.config.defaultConnection;
   }
 
+  /**
+   * Obtém informações sobre o modo Oracle Client atual
+   */
+  getOracleClientInfo() {
+    return {
+      thin: oracledb.thin,
+      version: oracledb.version,
+      clientInitialized: this.oracleClientInitialized,
+      clientVersion: oracledb.thin ? 'N/A (Thin mode)' : oracledb.versionString
+    };
+  }
+
   async testConnection(connectionName) {
     try {
       const connection = await this.getConnection(connectionName);
       await connection.execute('SELECT 1 FROM DUAL');
+      
+      const oracleInfo = this.getOracleClientInfo();
+      
       return {
         success: true,
         message: `Conexão '${connectionName}' testada com sucesso`,
-        connection: this.config.connections[connectionName]
+        connection: this.config.connections[connectionName],
+        oracleMode: oracleInfo.thin ? 'Thin' : 'Thick',
+        oracleVersion: oracleInfo.clientVersion
       };
     } catch (error) {
+      const oracleInfo = this.getOracleClientInfo();
+      
       return {
         success: false,
         message: `Falha no teste da conexão '${connectionName}': ${error.message}`,
-        error: error.message
+        error: error.message,
+        oracleMode: oracleInfo.thin ? 'Thin' : 'Thick',
+        oracleVersion: oracleInfo.clientVersion
       };
     }
   }

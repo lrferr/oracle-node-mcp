@@ -1,6 +1,6 @@
 {
   "name": "oracle-mcp-v1",
-  "version": "1.4.1",
+  "version": "1.4.4",
   "description": "Servidor MCP completo para Oracle Database com operações DDL, DML, DCL, monitoramento e auditoria",
   "main": "src/index.js",
   "bin": {
@@ -71,7 +71,7 @@
     "dotenv": "^16.4.5",
     "joi": "^17.13.3",
     "node-cron": "^3.0.3",
-    "oracledb": "^6.3.0",
+    "oracledb": "^6.9.0",
     "winston": "^3.13.0"
   },
   "devDependencies": {
