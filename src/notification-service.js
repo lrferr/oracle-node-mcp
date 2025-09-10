@@ -1,6 +1,5 @@
 import { Logger } from './logger.js';
 import fs from 'fs/promises';
-import path from 'path';
 
 export class NotificationService {
   constructor() {
@@ -265,7 +264,7 @@ Enviado pelo Oracle MCP Server
           const parts = line.split(' ');
           return {
             timestamp: parts[0] + ' ' + parts[1],
-            severity: parts[2].replace(/[\[\]]/g, ''),
+            severity: parts[2].replace(/[[\]]/g, ''),
             type: parts[3].replace(':', ''),
             message: parts.slice(4).join(' ')
           };
@@ -320,7 +319,7 @@ Enviado pelo Oracle MCP Server
           const parts = line.split(' ');
           return {
             timestamp: parts[0] + ' ' + parts[1],
-            severity: parts[2].replace(/[\[\]]/g, ''),
+            severity: parts[2].replace(/[[\]]/g, ''),
             type: parts[3].replace(':', ''),
             message: parts.slice(4).join(' ')
           };

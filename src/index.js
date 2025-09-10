@@ -1483,7 +1483,7 @@ class OracleMCPServer {
     }
   }
 
-  async handleDetectSuspiciousActivity(args) {
+  async handleDetectSuspiciousActivity() {
     try {
       const activities = await this.securityAudit.detectSuspiciousActivity();
       

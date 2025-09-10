@@ -388,7 +388,7 @@ export class DMLOperations {
         ${insertClause}
       `;
 
-      const result = await connection.execute(query);
+      await connection.execute(query);
       await connection.commit();
 
       this.logger.info(`Query MERGE executada com sucesso`);

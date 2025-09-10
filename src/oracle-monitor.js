@@ -276,7 +276,7 @@ export class OracleMonitor {
     return output;
   }
 
-  async executeSafeQuery(query, schema = 'HR') {
+  async executeSafeQuery(query) {
     // Validar se é uma query SELECT
     const trimmedQuery = query.trim().toUpperCase();
     if (!trimmedQuery.startsWith('SELECT')) {

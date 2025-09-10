@@ -124,7 +124,7 @@ export class DDLOperations {
       let alterQuery = `ALTER TABLE ${schema}.${tableName} `;
 
       switch (operation) {
-        case 'ADD_COLUMN':
+        case 'ADD_COLUMN': {
           if (!columnName || !columnType) {
             throw new Error('Nome e tipo da coluna são obrigatórios para ADD_COLUMN');
           }
@@ -134,8 +134,9 @@ export class DDLOperations {
           if (defaultValue) columnDef += ` DEFAULT ${defaultValue}`;
           alterQuery += `ADD ${columnDef}`;
           break;
+        }
 
-        case 'MODIFY_COLUMN':
+        case 'MODIFY_COLUMN': {
           if (!columnName || !columnType) {
             throw new Error('Nome e tipo da coluna são obrigatórios para MODIFY_COLUMN');
           }
@@ -145,6 +146,7 @@ export class DDLOperations {
           if (defaultValue) modifyDef += ` DEFAULT ${defaultValue}`;
           alterQuery += `MODIFY ${modifyDef}`;
           break;
+        }
 
         case 'DROP_COLUMN':
           if (!columnName) {
@@ -153,7 +155,7 @@ export class DDLOperations {
           alterQuery += `DROP COLUMN ${columnName}`;
           break;
 
-        case 'ADD_CONSTRAINT':
+        case 'ADD_CONSTRAINT': {
           if (!constraintName || !constraintType) {
             throw new Error('Nome e tipo da constraint são obrigatórios para ADD_CONSTRAINT');
           }
@@ -174,6 +176,7 @@ export class DDLOperations {
           }
           alterQuery += `ADD ${constraintDef}`;
           break;
+        }
 
         case 'DROP_CONSTRAINT':
           if (!constraintName) {

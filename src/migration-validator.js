@@ -122,7 +122,6 @@ export class MigrationValidator {
   }
 
   checkBackupStrategy(script) {
-    const upperScript = script.toUpperCase();
     const backupKeywords = [
       'BACKUP',
       'CREATE TABLE.*_BACKUP',
@@ -157,13 +156,11 @@ export class MigrationValidator {
     }
 
     // Verificar aspas balanceadas
-    let quoteCount = 0;
     let inString = false;
     for (const line of lines) {
       for (const char of line) {
         if (char === "'" && !inString) {
           inString = true;
-          quoteCount++;
         } else if (char === "'" && inString) {
           inString = false;
         }
