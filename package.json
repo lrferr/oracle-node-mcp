@@ -1,6 +1,6 @@
 {
   "name": "oracle-node-mcp",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Servidor MCP completo para Oracle Database com operações DDL, DML, DCL, monitoramento e auditoria",
   "main": "src/index.js",
   "bin": {
