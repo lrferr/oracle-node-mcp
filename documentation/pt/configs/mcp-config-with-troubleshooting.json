@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "oracle-monitor-2": {
+      "command": "npx oracle-mcp-v1@1.5.1",
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor-2",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CLIENT_PATH": "C:\\oracle\\instantclient_21_8\\instantclient_21_8",
+        "ORACLE_CONNECTIONS": "{\"connections\":{\"hml\":{\"user\":\"usuario_hml\",\"password\":\"senha_hml\",\"connectString\":\"servidor_hml:1521/hml01\",\"description\":\"Homologação\"},\"prod\":{\"user\":\"usuario_prod\",\"password\":\"senha_prod\",\"connectString\":\"servidor_prod:1529/prod01\",\"description\":\"Produção\"}},\"defaultConnection\":\"hml\"}"
+      }
+    }
+  },
+  "_comment": "Configuração com suporte a troubleshooting - inclui ORACLE_CLIENT_PATH para modo Thick"
+}

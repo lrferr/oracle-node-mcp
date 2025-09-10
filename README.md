@@ -30,6 +30,9 @@ npm install -g oracle-mcp-v1
 # Configurar Cursor IDE automaticamente
 npx oracle-mcp setup-cursor
 
+# Diagnosticar problemas de conectividade
+npx oracle-mcp diagnose
+
 # Testar conexão Oracle
 npx oracle-mcp test-connection
 ```
@@ -48,11 +51,13 @@ npm run demo-multi-connections
 ### 🇧🇷 Português
 - **[Documentação Principal](documentation/pt/README.md)** - Guia completo
 - **[Múltiplas Conexões](documentation/pt/guides/MULTIPLE-CONNECTIONS.md)** - Guia de múltiplas conexões
+- **[Resolução de Problemas](documentation/pt/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY.md)** - Guia de troubleshooting
 - **[API Reference](documentation/pt/api/README.md)** - Referência completa da API
 - **[Exemplos](documentation/pt/examples/)** - Exemplos práticos
 
 ### 🇺🇸 English
 - **[Main Documentation](documentation/en/README-EN.md)** - Complete guide
+- **[Troubleshooting Guide](documentation/en/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY-EN.md)** - Troubleshooting guide
 - **[Multiple Connections](documentation/en/guides/MULTIPLE-CONNECTIONS-EN.md)** - Multiple connections guide
 - **[API Reference](documentation/en/api/README.md)** - Complete API reference
 - **[Examples](documentation/en/examples/)** - Practical examples

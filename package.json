@@ -20,6 +20,7 @@
     "format": "prettier --write src/",
     "install-setup": "node install.js",
     "test-connection": "node scripts/test-connection.js",
+    "diagnose": "node scripts/diagnose-connectivity.js",
     "setup": "node scripts/setup.js",
     "test-mcp-config": "node scripts/test-mcp-config.js",
     "setup-cursor": "node scripts/setup-cursor.bat",

@@ -10,9 +10,11 @@
 ### ✨ Adicionado
 - Script PowerShell para instalação automática do Oracle Instant Client no Windows
 - Script Bash para instalação automática do Oracle Instant Client no Linux/macOS
-- Script de diagnóstico `test-password-verifier.js` para identificar problemas de compatibilidade
+- Script de diagnóstico `diagnose-connectivity.js` para identificar problemas de compatibilidade
+- Guia completo de troubleshooting em português e inglês
 - Detecção automática de caminhos do Oracle Instant Client
 - Tratamento inteligente de erros de conectividade com sugestões de solução
+- Comando `npm run diagnose` para diagnóstico rápido
 
 ### 🚀 Melhorias
 - ConnectionManager agora tenta automaticamente modo Thick quando detecta erro de password verifier
