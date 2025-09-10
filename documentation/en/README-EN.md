@@ -11,13 +11,15 @@ A powerful MCP (Model Context Protocol) server for Oracle Database monitoring, a
 
 ## ✨ Features
 
-- **Database Health Monitoring** - Real-time health checks and performance metrics
-- **Schema Change Detection** - Monitor critical schema changes
-- **Metadata Management** - Complete database structure analysis
-- **Migration Validation** - Safe migration script validation
-- **User Administration** - User and privilege management
-- **Query Execution** - Safe SELECT query execution
-- **Automated Setup** - One-command Cursor/Claude Desktop configuration
+- **🔗 Multiple Oracle Connections** - Connect to multiple Oracle databases simultaneously
+- **📊 Database Health Monitoring** - Real-time health checks and performance metrics
+- **🛡️ Schema Change Detection** - Monitor critical schema changes
+- **🔧 Metadata Management** - Complete database structure analysis
+- **✅ Migration Validation** - Safe migration script validation
+- **👥 User Administration** - User and privilege management
+- **🔍 Query Execution** - Safe SELECT query execution
+- **⚡ Automated Setup** - One-command Cursor/Claude Desktop configuration
+- **🎯 Multi-Environment Support** - Development, Testing, Staging, Production
 
 ## 🛠️ Installation
 
@@ -90,6 +92,21 @@ npx oracle-mcp test-connection
 # Start MCP server
 npx oracle-mcp
 ```
+
+### 🔗 Multiple Connections
+
+```bash
+# Configure multiple connections interactively
+npm run setup-multi-connections
+
+# Test all connections
+npm run demo-multi-connections
+
+# Generate MCP configuration for Cursor/Claude
+npm run generate-mcp-config
+```
+
+**📖 [Complete Multiple Connections Guide](guides/MULTIPLE-CONNECTIONS-EN.md)**
 
 ### Manual Configuration
 

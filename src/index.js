@@ -14,15 +14,23 @@ import { SecurityAudit } from './security-audit.js';
 import { ConnectionManager } from './connection-manager.js';
 import dotenv from 'dotenv';
 
-// Carregar variáveis de ambiente
+// Carregar variáveis de ambiente do .env (fallback)
 dotenv.config();
 
 class OracleMCPServer {
   constructor() {
+    // Priorizar variáveis de ambiente passadas pelo Cursor/Claude (mcp.json)
+    // sobre as do arquivo .env
+    const getEnvVar = (key, defaultValue = null) => {
+      // Primeiro tenta a variável de ambiente (passada pelo Cursor/Claude)
+      // process.env já contém as variáveis do mcp.json se passadas pelo Cursor
+      return process.env[key] || defaultValue;
+    };
+
     this.server = new Server(
       {
-        name: process.env.MCP_SERVER_NAME || 'oracle-monitor',
-        version: process.env.MCP_SERVER_VERSION || '1.0.0',
+        name: getEnvVar('MCP_SERVER_NAME', 'oracle-monitor'),
+        version: getEnvVar('MCP_SERVER_VERSION', '1.0.0'),
       },
       {
         capabilities: {
@@ -41,11 +49,11 @@ class OracleMCPServer {
     this.migrationValidator = new MigrationValidator();
     this.notificationService = new NotificationService();
     
-    // Manter compatibilidade com configuração antiga
+    // Configuração de conexão priorizando variáveis do Cursor/Claude
     this.connectionConfig = {
-      user: process.env.ORACLE_USER,
-      password: process.env.ORACLE_PASSWORD,
-      connectString: `${process.env.ORACLE_HOST}:${process.env.ORACLE_PORT}/${process.env.ORACLE_SERVICE_NAME}`
+      user: getEnvVar('ORACLE_USER'),
+      password: getEnvVar('ORACLE_PASSWORD'),
+      connectString: `${getEnvVar('ORACLE_HOST')}:${getEnvVar('ORACLE_PORT')}/${getEnvVar('ORACLE_SERVICE_NAME')}`
     };
     
     this.ddlOperations = new DDLOperations(this.connectionConfig, this.connectionManager);

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "node",
+      "args": ["C:\\Users\\ufpr\\Projetos MCPs\\oracle_node_mcp\\src\\index.js"],
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CONNECTIONS": "{\n  \"connections\": {\n    \"production\": {\n      \"user\": \"my_user\",\n      \"password\": \"my_password\",\n      \"connectString\": \"myhost:1521/db\",\n      \"description\": \"Production Database\",\n      \"environment\": \"production\",\n      \"poolMin\": 2,\n      \"poolMax\": 20,\n      \"poolIncrement\": 2,\n      \"poolTimeout\": 60,\n      \"poolPingInterval\": 60\n    },\n    \"development\": {\n      \"user\": \"leandro\",\n      \"password\": \"my_password\",\n      \"connectString\": \"myhost:1521/db\",\n      \"description\": \"Development Database\",\n      \"environment\": \"development\",\n      \"poolMin\": 1,\n      \"poolMax\": 10,\n      \"poolIncrement\": 1,\n      \"poolTimeout\": 60,\n      \"poolPingInterval\": 60\n    }\n  },\n  \"defaultConnection\": \"production\",\n  \"monitoring\": {\n    \"healthCheckInterval\": 300000,\n    \"schemaCheckInterval\": 600000,\n    \"performanceCheckInterval\": 300000\n  },\n  \"alerts\": {\n    \"tablespaceUsageThreshold\": 80,\n    \"connectionThreshold\": 100,\n    \"performanceThreshold\": 1000\n  }\n}"
+      }
+    }
+  }
+}
