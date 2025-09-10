@@ -2,7 +2,7 @@
   "mcpServers": {
     "oracle-monitor-single": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "seu-servidor-oracle.com",
         "ORACLE_PORT": "1521",
@@ -16,7 +16,7 @@
     },
     "oracle-monitor-multiple": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor-multiple",
         "MCP_SERVER_VERSION": "1.0.0",

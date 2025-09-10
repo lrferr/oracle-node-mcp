@@ -43,7 +43,7 @@ CONFIGURAÇÃO:
     ORACLE_PASSWORD=sua_senha
 
 DOCUMENTAÇÃO:
-  https://github.com/oracle-mcp/oracle-node-mcp
+  https://github.com/lrferr/oracle-mcp-v1
 `);
 }
 

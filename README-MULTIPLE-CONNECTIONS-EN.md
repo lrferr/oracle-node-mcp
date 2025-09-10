@@ -16,7 +16,7 @@ A comprehensive Oracle Database MCP server with support for multiple database co
 ### 1. Installation
 
 ```bash
-npm install oracle-node-mcp
+npm install oracle-mcp-v1
 ```
 
 ### 2. Configuration
@@ -301,7 +301,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-node-mcp/issues)
+- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-mcp-v1/issues)
 - **Documentation**: [Full Documentation](README.md)
 - **Examples**: [Examples Directory](examples/)
 

@@ -31,10 +31,10 @@ Todos os arquivos necessários foram criados e configurados.
 ### Instalação
 ```bash
 # Instalar globalmente
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Usar com npx (sem instalar)
-npx oracle-node-mcp --help
+npx oracle-mcp-v1 --help
 ```
 
 ### Comandos
@@ -82,7 +82,7 @@ oracle-mcp test-connection
 oracle-mcp setup-cursor
 
 # Desinstalar após teste
-npm uninstall -g oracle-node-mcp
+npm uninstall -g oracle-mcp-v1
 ```
 
 ### 3. Publicar
@@ -96,17 +96,17 @@ npm publish
 
 ```bash
 # Verificar se foi publicado
-npm view oracle-node-mcp
+npm view oracle-mcp-v1
 
 # Testar instalação
-npx oracle-node-mcp@latest --help
+npx oracle-mcp-v1@latest --help
 ```
 
 ## 📊 Configuração do package.json
 
 ```json
 {
-  "name": "oracle-node-mcp",
+  "name": "oracle-mcp-v1",
   "version": "1.0.0",
   "description": "Servidor MCP para monitoramento e interação com Oracle Database",
   "main": "src/index.js",
@@ -130,12 +130,12 @@ npx oracle-node-mcp@latest --help
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lrferr/oracle-node-mcp.git"
+    "url": "https://github.com/lrferr/oracle-mcp-v1.git"
   },
   "bugs": {
-    "url": "https://github.com/lrferr/oracle-node-mcp/issues"
+    "url": "https://github.com/lrferr/oracle-mcp-v1/issues"
   },
-  "homepage": "https://github.com/lrferr/oracle-node-mcp#readme",
+  "homepage": "https://github.com/lrferr/oracle-mcp-v1#readme",
   "files": [
     "src/", "bin/", "scripts/", "docs/", "examples/",
     "README.md", "LICENSE", "env.example"
@@ -159,7 +159,7 @@ npx oracle-mcp setup-cursor && npx oracle-mcp test-connection
 
 ```bash
 # Adicionar como dependência
-npm install --save-dev oracle-node-mcp
+npm install --save-dev oracle-mcp-v1
 
 # Usar em scripts
 {
@@ -180,7 +180,7 @@ O comando `setup-cursor` criará automaticamente:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "localhost",
         "ORACLE_PORT": "1521",
@@ -218,9 +218,9 @@ npm publish
 ## 📈 Benefícios da Publicação NPM
 
 ### ✅ Para Usuários
-- Instalação simples: `npm install -g oracle-node-mcp`
-- Uso sem instalação: `npx oracle-node-mcp`
-- Atualizações automáticas: `npm update -g oracle-node-mcp`
+- Instalação simples: `npm install -g oracle-mcp-v1`
+- Uso sem instalação: `npx oracle-mcp-v1`
+- Atualizações automáticas: `npm update -g oracle-mcp-v1`
 - Configuração automática: `npx oracle-mcp setup-cursor`
 
 ### ✅ Para Desenvolvedores
@@ -244,7 +244,7 @@ npm publish
 
 2. **Testar Instalação:**
    ```bash
-   npx oracle-node-mcp@latest --help
+   npx oracle-mcp-v1@latest --help
    ```
 
 3. **Documentar Uso:**

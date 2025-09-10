@@ -23,10 +23,10 @@ Welcome to the Oracle Node MCP Server documentation! This project is available i
 ### Installation
 ```bash
 # Install globally
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Or use with npx
-npx oracle-node-mcp --help
+npx oracle-mcp-v1 --help
 ```
 
 ### Configuration
@@ -82,7 +82,7 @@ The server automatically configures Cursor IDE and Claude Desktop with the follo
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "localhost",
         "ORACLE_PORT": "1521",
@@ -146,7 +146,7 @@ Execute query: SELECT * FROM HR.EMPLOYEES WHERE department_id = 10
 - [Oracle Database Documentation](https://docs.oracle.com/en/database/)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 - [Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)
-- [GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
+- [GitHub Repository](https://github.com/lrferr/oracle-mcp-v1)
 - [Winston Logger](https://github.com/winstonjs/winston)
 
 ## 🤝 Contributing

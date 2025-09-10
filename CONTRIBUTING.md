@@ -9,8 +9,8 @@ Obrigado por considerar contribuir para o Oracle Node MCP Server! Este documento
 1. Faça um fork do repositório no GitHub
 2. Clone seu fork localmente:
    ```bash
-   git clone https://github.com/SEU_USUARIO/oracle-node-mcp.git
-   cd oracle-node-mcp
+   git clone https://github.com/SEU_USUARIO/oracle-mcp-v1.git
+   cd oracle-mcp-v1
    ```
 
 ### 2. Configurar Ambiente de Desenvolvimento

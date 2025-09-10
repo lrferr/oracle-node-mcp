@@ -85,10 +85,10 @@ O projeto agora está disponível em duas linguagens com documentação completa
 ### Instalação
 ```bash
 # Instalar globalmente
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Usar com npx
-npx oracle-node-mcp --help
+npx oracle-mcp-v1 --help
 ```
 
 ### Configuração
@@ -131,7 +131,7 @@ O comando `setup-cursor` criará automaticamente a configuração MCP:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "localhost",
         "ORACLE_PORT": "1521",
@@ -169,11 +169,11 @@ O comando `setup-cursor` criará automaticamente a configuração MCP:
 
 2. **Testar instalação:**
    ```bash
-   npx oracle-node-mcp@latest --help
+   npx oracle-mcp-v1@latest --help
    ```
 
 3. **Configurar repositório GitHub:**
-   - Criar repositório em `github.com/lrferr/oracle-node-mcp`
+   - Criar repositório em `github.com/lrferr/oracle-mcp-v1`
    - Fazer push do código
    - Configurar páginas de documentação
 

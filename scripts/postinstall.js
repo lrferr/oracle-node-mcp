@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log('🚀 Oracle Node MCP Server - Pós-instalação\n');
+    console.log('🚀 Oracle MCP v1 Server - Pós-instalação\n');
 
 async function postInstall() {
   try {
@@ -83,7 +83,7 @@ async function postInstall() {
     console.log('  npx oracle-mcp --help             - Mostrar ajuda');
     
     console.log('\n📚 Documentação:');
-    console.log('  https://github.com/oracle-mcp/oracle-node-mcp');
+    console.log('  https://github.com/lrferr/oracle-mcp-v1');
     
     console.log('\n✅ Instalação concluída com sucesso!');
 

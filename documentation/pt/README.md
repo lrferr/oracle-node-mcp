@@ -1,8 +1,8 @@
 # Oracle Node MCP Server
 
-[![npm version](https://badge.fury.io/js/oracle-node-mcp.svg)](https://badge.fury.io/js/oracle-node-mcp)
-[![Downloads](https://img.shields.io/npm/dm/oracle-node-mcp.svg)](https://www.npmjs.com/package/oracle-node-mcp)
-[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-node-mcp.svg)](https://github.com/lrferr/oracle-node-mcp/stargazers)
+[![npm version](https://badge.fury.io/js/oracle-mcp-v1.svg)](https://badge.fury.io/js/oracle-mcp-v1)
+[![Downloads](https://img.shields.io/npm/dm/oracle-mcp-v1.svg)](https://www.npmjs.com/package/oracle-mcp-v1)
+[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-mcp-v1.svg)](https://github.com/lrferr/oracle-mcp-v1/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Um servidor MCP (Model Context Protocol) para monitoramento e interação com Oracle Database, desenvolvido em Node.js.
@@ -57,18 +57,18 @@ Um servidor MCP (Model Context Protocol) para monitoramento e interação com Or
 
 ```bash
 # Instalar globalmente
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Ou usar com npx (sem instalar)
-npx oracle-node-mcp --help
+npx oracle-mcp-v1 --help
 ```
 
 ### Opção 2: Instalação Local
 
 1. **Clone o repositório:**
 ```bash
-git clone https://github.com/lrferr/oracle-node-mcp.git
-cd oracle-node-mcp
+git clone https://github.com/lrferr/oracle-mcp-v1.git
+cd oracle-mcp-v1
 ```
 
 2. **Instale as dependências:**
@@ -663,8 +663,8 @@ Para suporte e dúvidas:
 
 ## 📚 Recursos Adicionais
 
-- [📦 Pacote NPM](https://www.npmjs.com/package/oracle-node-mcp)
-- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-node-mcp)
+- [📦 Pacote NPM](https://www.npmjs.com/package/oracle-mcp-v1)
+- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-mcp-v1)
 - [📖 Documentação do Oracle Database](https://docs.oracle.com/en/database/)
 - [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
 - [⚡ Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)

@@ -22,7 +22,7 @@ Complete guide and reference for using multiple Oracle connections with Oracle N
 
 ### 1. Installation
 ```bash
-npm install oracle-node-mcp
+npm install oracle-mcp-v1
 ```
 
 ### 2. Configuration
@@ -220,7 +220,7 @@ npm run setup-multi-connections
 
 ## 🤝 Support
 
-- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-node-mcp/issues)
+- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-mcp-v1/issues)
 - **Documentation**: [Full Documentation](README.md)
 - **Examples**: [Examples Directory](examples/)
 

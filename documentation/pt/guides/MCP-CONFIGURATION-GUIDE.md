@@ -13,7 +13,7 @@ Use esta configuração se você quer apenas uma conexão Oracle:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "seu-servidor-oracle.com",
         "ORACLE_PORT": "1521",
@@ -44,7 +44,7 @@ Use esta configuração se você quer apenas uma conexão Oracle:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor",
         "MCP_SERVER_VERSION": "1.0.0",
@@ -92,7 +92,7 @@ Use esta configuração se você quer apenas uma conexão Oracle:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor",
         "MCP_SERVER_VERSION": "1.0.0",
@@ -142,7 +142,7 @@ await mcp.callTool('check_database_health');
   "mcpServers": {
     "oracle-dev": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "MCP_SERVER_NAME": "oracle-dev",
         "MCP_SERVER_VERSION": "1.0.0"
@@ -180,7 +180,7 @@ Com `config/multi-connections.json`:
   "mcpServers": {
     "oracle-prod": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "prod-server.com",
         "ORACLE_PORT": "1521",
@@ -192,7 +192,7 @@ Com `config/multi-connections.json`:
     },
     "oracle-dev": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "dev-server.com",
         "ORACLE_PORT": "1521",

@@ -10,7 +10,7 @@
 
 2. **Criar Novo Repositório:**
    - Clique em "New repository" ou "+" → "New repository"
-   - **Repository name:** `oracle-node-mcp`
+   - **Repository name:** `oracle-mcp-v1`
    - **Description:** `MCP Server for Oracle Database monitoring and administration with Claude Desktop and Cursor IDE`
    - **Visibility:** Public (recomendado)
    - **Initialize with:** NÃO marque nenhuma opção (já temos arquivos)
@@ -24,7 +24,7 @@ Após criar o repositório, execute os comandos abaixo no terminal:
 
 ```bash
 # Adicionar remote origin (substitua SEU_USUARIO pelo seu username do GitHub)
-git remote add origin https://github.com/SEU_USUARIO/oracle-node-mcp.git
+git remote add origin https://github.com/SEU_USUARIO/oracle-mcp-v1.git
 
 # Renomear branch para main (padrão do GitHub)
 git branch -M main
@@ -78,19 +78,19 @@ Para o CI/CD funcionar, você precisa de um token do NPM:
 Após configurar tudo, verifique:
 
 1. **Repositório público:**
-   - https://github.com/SEU_USUARIO/oracle-node-mcp
+   - https://github.com/SEU_USUARIO/oracle-mcp-v1
 
 2. **Actions funcionando:**
    - Vá para a aba "Actions"
    - Deve mostrar workflow executando
 
 3. **NPM package:**
-   - https://www.npmjs.com/package/oracle-node-mcp
+   - https://www.npmjs.com/package/oracle-mcp-v1
 
 ## 🎯 Estrutura do Repositório
 
 ```
-oracle-node-mcp/
+oracle-mcp-v1/
 ├── .github/
 │   ├── workflows/
 │   │   └── ci.yml              # CI/CD pipeline
@@ -123,8 +123,8 @@ oracle-node-mcp/
 ### Desenvolvimento
 ```bash
 # Clonar repositório
-git clone https://github.com/SEU_USUARIO/oracle-node-mcp.git
-cd oracle-node-mcp
+git clone https://github.com/SEU_USUARIO/oracle-mcp-v1.git
+cd oracle-mcp-v1
 
 # Instalar dependências
 npm install
@@ -168,12 +168,12 @@ git push origin main --tags
 Adicione estes badges ao seu README.md:
 
 ```markdown
-[![npm version](https://badge.fury.io/js/oracle-node-mcp.svg)](https://badge.fury.io/js/oracle-node-mcp)
+[![npm version](https://badge.fury.io/js/oracle-mcp-v1.svg)](https://badge.fury.io/js/oracle-mcp-v1)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/node/v/oracle-node-mcp.svg)](https://nodejs.org/)
-[![Downloads](https://img.shields.io/npm/dm/oracle-node-mcp.svg)](https://www.npmjs.com/package/oracle-node-mcp)
-[![GitHub stars](https://img.shields.io/github/stars/SEU_USUARIO/oracle-node-mcp.svg)](https://github.com/SEU_USUARIO/oracle-node-mcp/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/SEU_USUARIO/oracle-node-mcp.svg)](https://github.com/SEU_USUARIO/oracle-node-mcp/issues)
+[![Node.js Version](https://img.shields.io/node/v/oracle-mcp-v1.svg)](https://nodejs.org/)
+[![Downloads](https://img.shields.io/npm/dm/oracle-mcp-v1.svg)](https://www.npmjs.com/package/oracle-mcp-v1)
+[![GitHub stars](https://img.shields.io/github/stars/SEU_USUARIO/oracle-mcp-v1.svg)](https://github.com/SEU_USUARIO/oracle-mcp-v1/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/SEU_USUARIO/oracle-mcp-v1.svg)](https://github.com/SEU_USUARIO/oracle-mcp-v1/issues)
 ```
 
 ## 🎉 Próximos Passos

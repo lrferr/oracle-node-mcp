@@ -132,7 +132,7 @@ class MCPConfigGenerator {
       mcpServers: {
         [config.serverName]: {
           command: "npx",
-          args: ["oracle-node-mcp"],
+          args: ["oracle-mcp-v1"],
           env: {
             MCP_SERVER_NAME: config.serverName,
             MCP_SERVER_VERSION: "1.0.0",

@@ -1,6 +1,20 @@
-# Changelog - Oracle Node MCP Server
+# Changelog - Oracle MCP v1 Server
 
-## [1.0.0] - 2024-12-19
+## [1.5.0] - 2024-12-19
+
+### 🔄 Renomeação
+- **BREAKING CHANGE**: Projeto renomeado de `oracle-node-mcp` para `oracle-mcp-v1`
+- Atualizadas todas as referências em documentação, scripts e configurações
+- URLs do GitHub atualizadas para `github.com/lrferr/oracle-mcp-v1`
+- Comandos NPM atualizados para `oracle-mcp-v1`
+
+### ✨ Melhorias
+- Versão bump para 1.5.0 para refletir a renomeação
+- Documentação completamente atualizada
+- Scripts de configuração atualizados
+- Arquivos de exemplo atualizados
+
+## [1.4.5] - 2024-12-19
 
 ### ✨ Adicionado
 - Servidor MCP completo para Oracle Database
@@ -50,7 +64,7 @@
 ### 🚀 Comandos NPM
 ```bash
 # Instalar globalmente
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Usar com npx
 npx oracle-mcp --help

@@ -1,8 +1,8 @@
 # 🚀 Oracle Node MCP Server
 
-[![npm version](https://badge.fury.io/js/oracle-node-mcp.svg)](https://badge.fury.io/js/oracle-node-mcp)
-[![Downloads](https://img.shields.io/npm/dm/oracle-node-mcp.svg)](https://www.npmjs.com/package/oracle-node-mcp)
-[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-node-mcp.svg)](https://github.com/lrferr/oracle-node-mcp/stargazers)
+[![npm version](https://badge.fury.io/js/oracle-mcp-v1.svg)](https://badge.fury.io/js/oracle-mcp-v1)
+[![Downloads](https://img.shields.io/npm/dm/oracle-mcp-v1.svg)](https://www.npmjs.com/package/oracle-mcp-v1)
+[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-mcp-v1.svg)](https://github.com/lrferr/oracle-mcp-v1/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A powerful MCP (Model Context Protocol) server for Oracle Database monitoring, administration, and interaction with Claude Desktop and Cursor IDE.
@@ -27,18 +27,18 @@ A powerful MCP (Model Context Protocol) server for Oracle Database monitoring, a
 
 ```bash
 # Install globally
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Or use with npx (without installing)
-npx oracle-node-mcp --help
+npx oracle-mcp-v1 --help
 ```
 
 ### Option 2: Local Installation
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/lrferr/oracle-node-mcp.git
-cd oracle-node-mcp
+git clone https://github.com/lrferr/oracle-mcp-v1.git
+cd oracle-mcp-v1
 ```
 
 2. **Install dependencies:**
@@ -201,7 +201,7 @@ The server automatically configures Cursor IDE with the following MCP configurat
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "localhost",
         "ORACLE_PORT": "1521",
@@ -273,8 +273,8 @@ Execute query: SELECT * FROM HR.EMPLOYEES WHERE department_id = 10
 
 ## 📚 Additional Resources
 
-- [📦 NPM Package](https://www.npmjs.com/package/oracle-node-mcp)
-- [🐙 GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
+- [📦 NPM Package](https://www.npmjs.com/package/oracle-mcp-v1)
+- [🐙 GitHub Repository](https://github.com/lrferr/oracle-mcp-v1)
 - [📖 Oracle Database Documentation](https://docs.oracle.com/en/database/)
 - [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
 - [⚡ Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)

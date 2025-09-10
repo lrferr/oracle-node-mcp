@@ -8,18 +8,18 @@ Get up and running with the Oracle Node MCP Server in minutes!
 
 ```bash
 # Install globally
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Or use with npx
-npx oracle-node-mcp --help
+npx oracle-mcp-v1 --help
 ```
 
 ### Option 2: Local Installation
 
 ```bash
 # Clone repository
-git clone https://github.com/lrferr/oracle-node-mcp.git
-cd oracle-node-mcp
+git clone https://github.com/lrferr/oracle-mcp-v1.git
+cd oracle-mcp-v1
 
 # Install dependencies
 npm install
@@ -57,7 +57,7 @@ npx oracle-mcp
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "your-host",
         "ORACLE_PORT": "1521",
@@ -221,7 +221,7 @@ npx oracle-mcp version
 - [Complete README](README-EN.md)
 - [Configuration Guide](docs/configuration-guide-en.md)
 - [Usage Examples](examples/usage-examples-en.md)
-- [GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
+- [GitHub Repository](https://github.com/lrferr/oracle-mcp-v1)
 
 ---
 

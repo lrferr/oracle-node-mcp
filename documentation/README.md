@@ -45,7 +45,7 @@ Documentação completa do Oracle Node MCP Server - Sistema de monitoramento e a
 
 ### 1. Instalação
 ```bash
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 ```
 
 ### 2. Configuração Rápida
@@ -77,8 +77,8 @@ npm run demo-multi-connections
 
 ## 📚 Recursos Adicionais
 
-- [📦 Pacote NPM](https://www.npmjs.com/package/oracle-node-mcp)
-- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-node-mcp)
+- [📦 Pacote NPM](https://www.npmjs.com/package/oracle-mcp-v1)
+- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-mcp-v1)
 - [📖 Documentação Oracle](https://docs.oracle.com/en/database/)
 - [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
 

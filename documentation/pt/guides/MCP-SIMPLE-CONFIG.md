@@ -31,7 +31,7 @@ Copie este exemplo para seu arquivo de configuração MCP:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor",
         "MCP_SERVER_VERSION": "1.0.0",
@@ -52,7 +52,7 @@ Copie este exemplo para seu arquivo de configuração MCP:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor",
         "MCP_SERVER_VERSION": "1.0.0",
@@ -70,7 +70,7 @@ Copie este exemplo para seu arquivo de configuração MCP:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor",
         "MCP_SERVER_VERSION": "1.0.0",

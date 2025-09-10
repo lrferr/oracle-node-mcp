@@ -36,7 +36,7 @@ oracle-mcp test-connection
 oracle-mcp setup-cursor
 
 # Desinstalar após teste
-npm uninstall -g oracle-node-mcp
+npm uninstall -g oracle-mcp-v1
 ```
 
 ## 📋 Checklist de Publicação
@@ -51,7 +51,7 @@ npm uninstall -g oracle-node-mcp
 
 ### ✅ Configurações do package.json
 
-- [x] `name`: "oracle-node-mcp"
+- [x] `name`: "oracle-mcp-v1"
 - [x] `version`: "1.0.0"
 - [x] `bin`: comando executável
 - [x] `files`: arquivos a incluir
@@ -95,10 +95,10 @@ npm publish --tag beta
 
 ```bash
 # Verificar se foi publicado
-npm view oracle-node-mcp
+npm view oracle-mcp-v1
 
 # Testar instalação
-npx oracle-node-mcp@latest --help
+npx oracle-mcp-v1@latest --help
 ```
 
 ## 🔄 Atualizações Futuras
@@ -130,7 +130,7 @@ npm publish --tag beta
 
 ```bash
 # Deprecar versão específica
-npm deprecate oracle-node-mcp@1.0.0 "Versão desatualizada, use 1.1.0+"
+npm deprecate oracle-mcp-v1@1.0.0 "Versão desatualizada, use 1.1.0+"
 ```
 
 ## 📊 Comandos Disponíveis Após Publicação
@@ -139,7 +139,7 @@ npm deprecate oracle-node-mcp@1.0.0 "Versão desatualizada, use 1.1.0+"
 
 ```bash
 # Instalar globalmente
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Usar comandos
 oracle-mcp --help
@@ -151,12 +151,12 @@ oracle-mcp setup-cursor
 
 ```bash
 # Usar sem instalar
-npx oracle-node-mcp --help
-npx oracle-node-mcp test-connection
-npx oracle-node-mcp setup-cursor
+npx oracle-mcp-v1 --help
+npx oracle-mcp-v1 test-connection
+npx oracle-mcp-v1 setup-cursor
 
 # Usar versão específica
-npx oracle-node-mcp@1.0.0 --help
+npx oracle-mcp-v1@1.0.0 --help
 ```
 
 ## 🎯 Exemplos de Uso Pós-Publicação
@@ -165,20 +165,20 @@ npx oracle-node-mcp@1.0.0 --help
 
 ```bash
 # Instalar e configurar automaticamente
-npx oracle-node-mcp setup-cursor
+npx oracle-mcp-v1 setup-cursor
 
 # Testar conexão
-npx oracle-node-mcp test-connection
+npx oracle-mcp-v1 test-connection
 
 # Iniciar servidor
-npx oracle-node-mcp
+npx oracle-mcp-v1
 ```
 
 ### 2. Configuração Manual
 
 ```bash
 # Instalar globalmente
-npm install -g oracle-node-mcp
+npm install -g oracle-mcp-v1
 
 # Configurar Cursor
 oracle-mcp setup-cursor
@@ -194,7 +194,7 @@ oracle-mcp
 
 ```bash
 # Adicionar como dependência de desenvolvimento
-npm install --save-dev oracle-node-mcp
+npm install --save-dev oracle-mcp-v1
 
 # Usar em scripts do package.json
 {
@@ -215,7 +215,7 @@ Após a instalação, o comando `setup-cursor` criará automaticamente:
   "mcpServers": {
     "oracle-monitor": {
       "command": "npx",
-      "args": ["oracle-node-mcp"],
+      "args": ["oracle-mcp-v1"],
       "env": {
         "ORACLE_HOST": "localhost",
         "ORACLE_PORT": "1521",
@@ -234,15 +234,15 @@ Após a instalação, o comando `setup-cursor` criará automaticamente:
 
 ```bash
 # Ver estatísticas do pacote
-npm view oracle-node-mcp
+npm view oracle-mcp-v1
 
 # Ver downloads
-npm view oracle-node-mcp downloads
+npm view oracle-mcp-v1 downloads
 ```
 
 ### 2. GitHub Insights
 
-- Acessar: https://github.com/lrferr/oracle-node-mcp/insights
+- Acessar: https://github.com/lrferr/oracle-mcp-v1/insights
 - Verificar: Stars, Forks, Clones, Traffic
 
 ## 🐛 Troubleshooting
@@ -252,7 +252,7 @@ npm view oracle-node-mcp downloads
 **Solução:**
 ```bash
 # Verificar se o nome está disponível
-npm view oracle-node-mcp
+npm view oracle-mcp-v1
 
 # Se existir, escolher outro nome
 npm init
