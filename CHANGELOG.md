@@ -1,5 +1,25 @@
 # Changelog - Oracle MCP v1 Server
 
+## [1.5.1] - 2025-01-10
+
+### 🔧 Correções
+- **FIX**: Resolvido erro "password verifier type 0x939 is not supported" 
+- Adicionado suporte para Oracle 10g/11g com verificadores de senha antigos
+- Melhorada detecção automática e fallback para modo Thick do Oracle Client
+
+### ✨ Adicionado
+- Script PowerShell para instalação automática do Oracle Instant Client no Windows
+- Script Bash para instalação automática do Oracle Instant Client no Linux/macOS
+- Script de diagnóstico `test-password-verifier.js` para identificar problemas de compatibilidade
+- Detecção automática de caminhos do Oracle Instant Client
+- Tratamento inteligente de erros de conectividade com sugestões de solução
+
+### 🚀 Melhorias
+- ConnectionManager agora tenta automaticamente modo Thick quando detecta erro de password verifier
+- Logs mais informativos para diagnóstico de problemas de conectividade
+- Suporte aprimorado para múltiplas versões do Oracle Instant Client
+- Configuração automática de variáveis de ambiente
+
 ## [1.5.0] - 2024-12-19
 
 ### 🔄 Renomeação
