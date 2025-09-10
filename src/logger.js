@@ -2,6 +2,29 @@ import winston from 'winston';
 
 export class Logger {
   constructor() {
+    // Verificar se está rodando como servidor MCP (sem TTY)
+    const isMCPServer = !process.stdout.isTTY || process.env.MCP_SERVER_MODE === 'true';
+    
+    const transports = [];
+    
+    // Só adicionar console transport se não estiver rodando como servidor MCP
+    if (!isMCPServer) {
+      transports.push(
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.colorize(),
+            winston.format.printf(({ timestamp, level, message, ...meta }) => {
+              let log = `${timestamp} [${level}]: ${message}`;
+              if (Object.keys(meta).length > 0) {
+                log += ` ${JSON.stringify(meta)}`;
+              }
+              return log;
+            })
+          )
+        })
+      );
+    }
+    
     this.logger = winston.createLogger({
       level: process.env.LOG_LEVEL || 'info',
       format: winston.format.combine(
@@ -13,20 +36,7 @@ export class Logger {
       ),
       defaultMeta: { service: 'oracle-mcp' },
       transports: [
-        // Console transport
-        new winston.transports.Console({
-          format: winston.format.combine(
-            winston.format.colorize(),
-            winston.format.simple(),
-            winston.format.printf(({ timestamp, level, message, ...meta }) => {
-              let log = `${timestamp} [${level}]: ${message}`;
-              if (Object.keys(meta).length > 0) {
-                log += ` ${JSON.stringify(meta)}`;
-              }
-              return log;
-            })
-          )
-        }),
+        ...transports,
         
         // File transport for all logs
         new winston.transports.File({

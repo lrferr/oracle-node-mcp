@@ -1727,4 +1727,8 @@ class OracleMCPServer {
 
 // Iniciar o servidor
 const server = new OracleMCPServer();
-server.start().catch(console.error);
+server.start().catch((error) => {
+  const logger = new Logger();
+  logger.error('Erro ao iniciar servidor MCP:', error);
+  process.exit(1);
+});
