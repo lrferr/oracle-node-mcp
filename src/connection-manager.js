@@ -115,7 +115,7 @@ export class ConnectionManager {
     return Object.keys(this.config.connections).map(name => ({
       name,
       description: this.config.connections[name].description,
-      environment: this.config.connections[name].environment
+      environment: this.config.connections[name].environment || 'default'
     }));
   }
 
