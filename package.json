@@ -4,7 +4,7 @@
   "description": "Servidor MCP completo para Oracle Database com operações DDL, DML, DCL, monitoramento e auditoria",
   "main": "src/index.js",
   "bin": {
-    "oracle-mcp": "./bin/oracle-mcp-cli.js"
+    "oracle-mcp": "bin/oracle-mcp-cli.js"
   },
   "type": "module",
   "scripts": {
@@ -59,7 +59,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lrferr/oracle-node-mcp.git"
+    "url": "git+https://github.com/lrferr/oracle-node-mcp.git"
   },
   "bugs": {
     "url": "https://github.com/lrferr/oracle-node-mcp/issues"
