@@ -63,6 +63,47 @@ npm install -g oracle-mcp-v1
 npx oracle-mcp-v1 --help
 ```
 
+## 🚀 Configuração Rápida
+
+### Configuração MCP (Cursor/Claude Desktop)
+
+Adicione a seguinte configuração ao seu arquivo `mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "npx oracle-mcp-v1@latest",
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CLIENT_PATH": "C:\\oracle\\instantclient_21_8",
+        "ORACLE_CONNECTIONS": "{\"connections\":{\"prod\":{\"user\":\"seu_usuario\",\"password\":\"sua_senha\",\"connectString\":\"servidor:porta/servico\",\"description\":\"Production Database\"}},\"defaultConnection\":\"prod\"}"
+      }
+    }
+  }
+}
+```
+
+**Para múltiplas conexões:**
+```json
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "npx oracle-mcp-v1@latest",
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CLIENT_PATH": "C:\\oracle\\instantclient_21_8",
+        "ORACLE_CONNECTIONS": "{\"connections\":{\"hml\":{\"user\":\"usuario_hml\",\"password\":\"senha_hml\",\"connectString\":\"servidor_hml:1521/hml01\",\"description\":\"Homologação Database\"},\"prod\":{\"user\":\"usuario_prod\",\"password\":\"senha_prod\",\"connectString\":\"servidor_prod:1529/prod01\",\"description\":\"Production Database\"}},\"defaultConnection\":\"prod\"}"
+      }
+    }
+  }
+}
+```
+
 ### Opção 2: Instalação Local
 
 1. **Clone o repositório:**

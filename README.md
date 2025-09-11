@@ -7,7 +7,7 @@
 
 Um servidor MCP (Model Context Protocol) para monitoramento e interação com Oracle Database, desenvolvido em Node.js com suporte a **múltiplas conexões simultâneas**.
 
-**📚 [Documentação Completa](documentation/README.md) | 📖 [English](documentation/en/README-EN.md) | 🇧🇷 [Português](documentation/pt/README.md)**
+**📚 [Documentação Completa](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/README.md) | 📖 [English](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/README-EN.md) | 🇧🇷 [Português](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/README.md)**
 
 ## ✨ Funcionalidades Principais
 
@@ -25,7 +25,46 @@ Um servidor MCP (Model Context Protocol) para monitoramento e interação com Or
 npm install -g oracle-mcp-v1
 ```
 
-### 2. Configuração Rápida
+### 2. Configuração MCP (Cursor/Claude Desktop)
+
+Adicione a seguinte configuração ao seu arquivo `mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "npx oracle-mcp-v1@latest",
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CLIENT_PATH": "C:\\oracle\\instantclient_21_8",
+        "ORACLE_CONNECTIONS": "{\"connections\":{\"prod\":{\"user\":\"seu_usuario\",\"password\":\"sua_senha\",\"connectString\":\"servidor:porta/servico\",\"description\":\"Production Database\"}},\"defaultConnection\":\"prod\"}"
+      }
+    }
+  }
+}
+```
+
+**Para múltiplas conexões:**
+```json
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "npx oracle-mcp-v1@latest",
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CLIENT_PATH": "C:\\oracle\\instantclient_21_8",
+        "ORACLE_CONNECTIONS": "{\"connections\":{\"hml\":{\"user\":\"usuario_hml\",\"password\":\"senha_hml\",\"connectString\":\"servidor_hml:1521/hml01\",\"description\":\"Homologação Database\"},\"prod\":{\"user\":\"usuario_prod\",\"password\":\"senha_prod\",\"connectString\":\"servidor_prod:1529/prod01\",\"description\":\"Production Database\"}},\"defaultConnection\":\"prod\"}"
+      }
+    }
+  }
+}
+```
+
+### 3. Configuração Automática (Opcional)
 ```bash
 # Configurar Cursor IDE automaticamente
 npx oracle-mcp setup-cursor
@@ -37,7 +76,7 @@ npx oracle-mcp diagnose
 npx oracle-mcp test-connection
 ```
 
-### 3. Múltiplas Conexões
+### 4. Múltiplas Conexões
 ```bash
 # Configurar múltiplas conexões
 npm run setup-multi-connections
@@ -49,18 +88,18 @@ npm run demo-multi-connections
 ## 📚 Documentação
 
 ### 🇧🇷 Português
-- **[Documentação Principal](documentation/pt/README.md)** - Guia completo
-- **[Múltiplas Conexões](documentation/pt/guides/MULTIPLE-CONNECTIONS.md)** - Guia de múltiplas conexões
-- **[Resolução de Problemas](documentation/pt/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY.md)** - Guia de troubleshooting
-- **[API Reference](documentation/pt/api/README.md)** - Referência completa da API
-- **[Exemplos](documentation/pt/examples/)** - Exemplos práticos
+- **[Documentação Principal](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/README.md)** - Guia completo
+- **[Múltiplas Conexões](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/guides/MULTIPLE-CONNECTIONS.md)** - Guia de múltiplas conexões
+- **[Resolução de Problemas](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY.md)** - Guia de troubleshooting
+- **[API Reference](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/api/README.md)** - Referência completa da API
+- **[Exemplos](https://github.com/lrferr/oracle-mcp-v1/tree/HEAD/documentation/pt/examples)** - Exemplos práticos
 
 ### 🇺🇸 English
-- **[Main Documentation](documentation/en/README-EN.md)** - Complete guide
-- **[Troubleshooting Guide](documentation/en/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY-EN.md)** - Troubleshooting guide
-- **[Multiple Connections](documentation/en/guides/MULTIPLE-CONNECTIONS-EN.md)** - Multiple connections guide
-- **[API Reference](documentation/en/api/README.md)** - Complete API reference
-- **[Examples](documentation/en/examples/)** - Practical examples
+- **[Main Documentation](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/README-EN.md)** - Complete guide
+- **[Troubleshooting Guide](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY-EN.md)** - Troubleshooting guide
+- **[Multiple Connections](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/guides/MULTIPLE-CONNECTIONS-EN.md)** - Multiple connections guide
+- **[API Reference](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/api/README.md)** - Complete API reference
+- **[Examples](https://github.com/lrferr/oracle-mcp-v1/tree/HEAD/documentation/en/examples)** - Practical examples
 
 ## 🛠️ Ferramentas Disponíveis
 
@@ -114,7 +153,7 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 Para suporte e dúvidas:
 
-1. Consulte a [documentação completa](documentation/README.md)
+1. Consulte a [documentação completa](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/README.md)
 2. Abra uma issue no GitHub
 3. Verifique os logs para erros específicos
 

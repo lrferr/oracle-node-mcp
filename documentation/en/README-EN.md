@@ -33,6 +33,47 @@ npm install -g oracle-mcp-v1
 npx oracle-mcp-v1 --help
 ```
 
+## 🚀 Quick Setup
+
+### MCP Configuration (Cursor/Claude Desktop)
+
+Add the following configuration to your `mcp.json` file:
+
+```json
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "npx oracle-mcp-v1@latest",
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CLIENT_PATH": "C:\\oracle\\instantclient_21_8",
+        "ORACLE_CONNECTIONS": "{\"connections\":{\"prod\":{\"user\":\"your_username\",\"password\":\"your_password\",\"connectString\":\"server:port/service\",\"description\":\"Production Database\"}},\"defaultConnection\":\"prod\"}"
+      }
+    }
+  }
+}
+```
+
+**For multiple connections:**
+```json
+{
+  "mcpServers": {
+    "oracle-monitor": {
+      "command": "npx oracle-mcp-v1@latest",
+      "env": {
+        "MCP_SERVER_NAME": "oracle-monitor",
+        "MCP_SERVER_VERSION": "1.0.0",
+        "LOG_LEVEL": "info",
+        "ORACLE_CLIENT_PATH": "C:\\oracle\\instantclient_21_8",
+        "ORACLE_CONNECTIONS": "{\"connections\":{\"dev\":{\"user\":\"dev_user\",\"password\":\"dev_password\",\"connectString\":\"dev_server:1521/dev01\",\"description\":\"Development Database\"},\"prod\":{\"user\":\"prod_user\",\"password\":\"prod_password\",\"connectString\":\"prod_server:1529/prod01\",\"description\":\"Production Database\"}},\"defaultConnection\":\"prod\"}"
+      }
+    }
+  }
+}
+```
+
 ### Option 2: Local Installation
 
 1. **Clone the repository:**
