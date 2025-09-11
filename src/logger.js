@@ -12,7 +12,6 @@ export class Logger {
       transports.push(
         new winston.transports.Console({
           format: winston.format.combine(
-            winston.format.colorize(),
             winston.format.printf(({ timestamp, level, message, ...meta }) => {
               let log = `${timestamp} [${level}]: ${message}`;
               if (Object.keys(meta).length > 0) {

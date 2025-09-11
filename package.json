@@ -75,7 +75,7 @@
     "joi": "^17.13.3",
     "node-cron": "^3.0.3",
     "oracledb": "^6.9.0",
-    "winston": "^3.13.0"
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
