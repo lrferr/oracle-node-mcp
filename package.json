@@ -60,12 +60,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lrferr/oracle-mcp-v1.git"
+    "url": "git+https://github.com/lrferr/oracle-node-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/lrferr/oracle-mcp-v1/issues"
+    "url": "https://github.com/lrferr/oracle-node-mcp/issues"
   },
-  "homepage": "https://github.com/lrferr/oracle-mcp-v1#readme",
+  "homepage": "https://github.com/lrferr/oracle-node-mcp#readme",
   "readme": "README.md",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.5",

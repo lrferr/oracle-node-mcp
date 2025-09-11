@@ -2,12 +2,12 @@
 
 [![npm version](https://badge.fury.io/js/oracle-mcp-v1.svg)](https://badge.fury.io/js/oracle-mcp-v1)
 [![Downloads](https://img.shields.io/npm/dm/oracle-mcp-v1.svg)](https://www.npmjs.com/package/oracle-mcp-v1)
-[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-mcp-v1.svg)](https://github.com/lrferr/oracle-mcp-v1/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-mcp-v1.svg)](https://github.com/lrferr/oracle-node-mcp/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Um servidor MCP (Model Context Protocol) para monitoramento e interação com Oracle Database, desenvolvido em Node.js com suporte a **múltiplas conexões simultâneas**.
 
-**📚 [Documentação Completa](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/README.md) | 📖 [English](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/README-EN.md) | 🇧🇷 [Português](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/README.md)**
+**📚 [Documentação Completa](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/README.md) | 📖 [English](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/en/README-EN.md) | 🇧🇷 [Português](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/pt/README.md)**
 
 ## ✨ Funcionalidades Principais
 
@@ -90,18 +90,18 @@ npm run demo-multi-connections
 ## 📚 Documentação
 
 ### 🇧🇷 Português
-- **[Documentação Principal](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/README.md)** - Guia completo
-- **[Múltiplas Conexões](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/guides/MULTIPLE-CONNECTIONS.md)** - Guia de múltiplas conexões
-- **[Resolução de Problemas](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY.md)** - Guia de troubleshooting
-- **[API Reference](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/pt/api/README.md)** - Referência completa da API
-- **[Exemplos](https://github.com/lrferr/oracle-mcp-v1/tree/HEAD/documentation/pt/examples)** - Exemplos práticos
+- **[Documentação Principal](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/pt/README.md)** - Guia completo
+- **[Múltiplas Conexões](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/pt/guides/MULTIPLE-CONNECTIONS.md)** - Guia de múltiplas conexões
+- **[Resolução de Problemas](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/pt/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY.md)** - Guia de troubleshooting
+- **[API Reference](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/pt/api/README.md)** - Referência completa da API
+- **[Exemplos](https://github.com/lrferr/oracle-node-mcp/tree/HEAD/documentation/pt/examples)** - Exemplos práticos
 
 ### 🇺🇸 English
-- **[Main Documentation](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/README-EN.md)** - Complete guide
-- **[Troubleshooting Guide](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY-EN.md)** - Troubleshooting guide
-- **[Multiple Connections](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/guides/MULTIPLE-CONNECTIONS-EN.md)** - Multiple connections guide
-- **[API Reference](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/en/api/README.md)** - Complete API reference
-- **[Examples](https://github.com/lrferr/oracle-mcp-v1/tree/HEAD/documentation/en/examples)** - Practical examples
+- **[Main Documentation](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/en/README-EN.md)** - Complete guide
+- **[Troubleshooting Guide](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/en/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY-EN.md)** - Troubleshooting guide
+- **[Multiple Connections](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/en/guides/MULTIPLE-CONNECTIONS-EN.md)** - Multiple connections guide
+- **[API Reference](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/en/api/README.md)** - Complete API reference
+- **[Examples](https://github.com/lrferr/oracle-node-mcp/tree/HEAD/documentation/en/examples)** - Practical examples
 
 ## 🛠️ Ferramentas Disponíveis
 
@@ -155,14 +155,14 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 Para suporte e dúvidas:
 
-1. Consulte a [documentação completa](https://github.com/lrferr/oracle-mcp-v1/blob/HEAD/documentation/README.md)
+1. Consulte a [documentação completa](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/README.md)
 2. Abra uma issue no GitHub
 3. Verifique os logs para erros específicos
 
 ## 📚 Recursos Adicionais
 
 - [📦 Pacote NPM](https://www.npmjs.com/package/oracle-mcp-v1)
-- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-mcp-v1)
+- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-node-mcp)
 - [📖 Documentação Oracle](https://docs.oracle.com/en/database/)
 - [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
 

@@ -130,12 +130,12 @@ npx oracle-mcp-v1@latest --help
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lrferr/oracle-mcp-v1.git"
+    "url": "https://github.com/lrferr/oracle-node-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/lrferr/oracle-mcp-v1/issues"
+    "url": "https://github.com/lrferr/oracle-node-mcp/issues"
   },
-  "homepage": "https://github.com/lrferr/oracle-mcp-v1#readme",
+  "homepage": "https://github.com/lrferr/oracle-node-mcp#readme",
   "files": [
     "src/", "bin/", "scripts/", "docs/", "examples/",
     "README.md", "LICENSE", "env.example"

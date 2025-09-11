@@ -78,7 +78,7 @@ npm run demo-multi-connections
 ## 📚 Recursos Adicionais
 
 - [📦 Pacote NPM](https://www.npmjs.com/package/oracle-mcp-v1)
-- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-mcp-v1)
+- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-node-mcp)
 - [📖 Documentação Oracle](https://docs.oracle.com/en/database/)
 - [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
 

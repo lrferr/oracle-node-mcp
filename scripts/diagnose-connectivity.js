@@ -167,6 +167,6 @@ if (oracledb.thin) {
 console.log('\n📚 Para mais informações:');
 console.log('   • Guia de Troubleshooting: documentation/pt/guides/TROUBLESHOOTING-ORACLE-CONNECTIVITY.md');
 console.log('   • Documentação: documentation/pt/README.md');
-console.log('   • Issues: https://github.com/lrferr/oracle-mcp-v1/issues');
+console.log('   • Issues: https://github.com/lrferr/oracle-node-mcp/issues');
 
 console.log('\n✅ Diagnóstico concluído!');

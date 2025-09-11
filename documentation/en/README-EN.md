@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/oracle-mcp-v1.svg)](https://badge.fury.io/js/oracle-mcp-v1)
 [![Downloads](https://img.shields.io/npm/dm/oracle-mcp-v1.svg)](https://www.npmjs.com/package/oracle-mcp-v1)
-[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-mcp-v1.svg)](https://github.com/lrferr/oracle-mcp-v1/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-mcp-v1.svg)](https://github.com/lrferr/oracle-node-mcp/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A powerful MCP (Model Context Protocol) server for Oracle Database monitoring, administration, and interaction with Claude Desktop and Cursor IDE.
@@ -80,7 +80,7 @@ Add the following configuration to your `mcp.json` file:
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/lrferr/oracle-mcp-v1.git
+git clone https://github.com/lrferr/oracle-node-mcp.git
 cd oracle-mcp-v1
 ```
 
@@ -316,8 +316,8 @@ Execute query: SELECT * FROM HR.EMPLOYEES WHERE department_id = 10
 
 ## 📚 Additional Resources
 
-- [📦 NPM Package](https://www.npmjs.com/package/oracle-mcp-v1)
-- [🐙 GitHub Repository](https://github.com/lrferr/oracle-mcp-v1)
+- [📦 NPM Package](https://www.npmjs.com/package/oracle-node-mcp)
+- [🐙 GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
 - [📖 Oracle Database Documentation](https://docs.oracle.com/en/database/)
 - [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
 - [⚡ Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)

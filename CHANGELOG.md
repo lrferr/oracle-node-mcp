@@ -73,7 +73,7 @@
 ### 🔄 Renomeação
 - **BREAKING CHANGE**: Projeto renomeado de `oracle-node-mcp` para `oracle-mcp-v1`
 - Atualizadas todas as referências em documentação, scripts e configurações
-- URLs do GitHub atualizadas para `github.com/lrferr/oracle-mcp-v1`
+- URLs do GitHub atualizadas para `github.com/lrferr/oracle-node-mcp`
 - Comandos NPM atualizados para `oracle-mcp-v1`
 
 ### ✨ Melhorias

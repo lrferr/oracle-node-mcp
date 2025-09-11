@@ -301,7 +301,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-mcp-v1/issues)
+- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-node-mcp/issues)
 - **Documentation**: [Full Documentation](README.md)
 - **Examples**: [Examples Directory](examples/)
 

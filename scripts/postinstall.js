@@ -83,7 +83,7 @@ async function postInstall() {
     console.log('  npx oracle-mcp --help             - Mostrar ajuda');
     
     console.log('\n📚 Documentação:');
-    console.log('  https://github.com/lrferr/oracle-mcp-v1');
+    console.log('  https://github.com/lrferr/oracle-node-mcp');
     
     console.log('\n✅ Instalação concluída com sucesso!');
 

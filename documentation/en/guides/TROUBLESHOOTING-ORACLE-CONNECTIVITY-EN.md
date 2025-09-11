@@ -222,7 +222,7 @@ If problems persist:
 1. **Check logs:** `logs/oracle-mcp.log`
 2. **Run diagnosis:** `node scripts/diagnose-mcp.js`
 3. **Check documentation:** [README.md](../README-EN.md)
-4. **Open issue:** [GitHub Issues](https://github.com/lrferr/oracle-mcp-v1/issues)
+4. **Open issue:** [GitHub Issues](https://github.com/lrferr/oracle-node-mcp/issues)
 
 ## 🔗 Useful Links
 

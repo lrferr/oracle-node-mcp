@@ -355,7 +355,7 @@ Analyze indexes for the EMPLOYEES table in HR schema
 - [Oracle Node.js Documentation](https://oracle.github.io/node-oracledb/)
 - [Cursor IDE Documentation](https://cursor.sh/docs)
 - [Claude Desktop Documentation](https://claude.ai/desktop)
-- [GitHub Repository](https://github.com/lrferr/oracle-mcp-v1)
+- [GitHub Repository](https://github.com/lrferr/oracle-node-mcp)
 
 ---
 

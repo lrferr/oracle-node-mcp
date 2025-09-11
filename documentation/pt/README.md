@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/oracle-mcp-v1.svg)](https://badge.fury.io/js/oracle-mcp-v1)
 [![Downloads](https://img.shields.io/npm/dm/oracle-mcp-v1.svg)](https://www.npmjs.com/package/oracle-mcp-v1)
-[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-mcp-v1.svg)](https://github.com/lrferr/oracle-mcp-v1/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/lrferr/oracle-node-mcp.svg)](https://github.com/lrferr/oracle-node-mcp/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Um servidor MCP (Model Context Protocol) para monitoramento e interação com Oracle Database, desenvolvido em Node.js.
@@ -110,7 +110,7 @@ Adicione a seguinte configuração ao seu arquivo `mcp.json`:
 
 1. **Clone o repositório:**
 ```bash
-git clone https://github.com/lrferr/oracle-mcp-v1.git
+git clone https://github.com/lrferr/oracle-node-mcp.git
 cd oracle-mcp-v1
 ```
 
@@ -707,7 +707,7 @@ Para suporte e dúvidas:
 ## 📚 Recursos Adicionais
 
 - [📦 Pacote NPM](https://www.npmjs.com/package/oracle-mcp-v1)
-- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-mcp-v1)
+- [🐙 Repositório GitHub](https://github.com/lrferr/oracle-node-mcp)
 - [📖 Documentação do Oracle Database](https://docs.oracle.com/en/database/)
 - [🔗 Model Context Protocol](https://modelcontextprotocol.io/)
 - [⚡ Node.js Oracle Driver](https://oracle.github.io/node-oracledb/)

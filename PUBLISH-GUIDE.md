@@ -242,7 +242,7 @@ npm view oracle-mcp-v1 downloads
 
 ### 2. GitHub Insights
 
-- Acessar: https://github.com/lrferr/oracle-mcp-v1/insights
+- Acessar: https://github.com/lrferr/oracle-node-mcp/insights
 - Verificar: Stars, Forks, Clones, Traffic
 
 ## 🐛 Troubleshooting

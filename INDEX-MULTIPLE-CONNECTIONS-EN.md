@@ -220,7 +220,7 @@ npm run setup-multi-connections
 
 ## 🤝 Support
 
-- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-mcp-v1/issues)
+- **Issues**: [GitHub Issues](https://github.com/lrferr/oracle-node-mcp/issues)
 - **Documentation**: [Full Documentation](README.md)
 - **Examples**: [Examples Directory](examples/)
 
