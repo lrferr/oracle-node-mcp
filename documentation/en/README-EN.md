@@ -43,7 +43,8 @@ Add the following configuration to your `mcp.json` file:
 {
   "mcpServers": {
     "oracle-monitor": {
-      "command": "npx oracle-mcp-v1@latest",
+      "command": "npx",
+      "args": ["oracle-mcp-v1@latest"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor",
         "MCP_SERVER_VERSION": "1.0.0",
@@ -61,7 +62,8 @@ Add the following configuration to your `mcp.json` file:
 {
   "mcpServers": {
     "oracle-monitor": {
-      "command": "npx oracle-mcp-v1@latest",
+      "command": "npx",
+      "args": ["oracle-mcp-v1@latest"],
       "env": {
         "MCP_SERVER_NAME": "oracle-monitor",
         "MCP_SERVER_VERSION": "1.0.0",
