@@ -76,6 +76,7 @@
     "joi": "^17.13.3",
     "node-cron": "^3.0.3",
     "oracledb": "^6.9.0",
+    "readable-stream": "^4.5.2",
     "winston": "^3.17.0"
   },
   "devDependencies": {
