@@ -7,6 +7,8 @@
 
 Um servidor MCP (Model Context Protocol) para monitoramento e interação com Oracle Database, desenvolvido em Node.js com suporte a **múltiplas conexões simultâneas**.
 
+> **Nota:** Este é o README principal do projeto. Para documentação completa, consulte os links abaixo.
+
 **📚 [Documentação Completa](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/README.md) | 📖 [English](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/en/README-EN.md) | 🇧🇷 [Português](https://github.com/lrferr/oracle-node-mcp/blob/HEAD/documentation/pt/README.md)**
 
 ## ✨ Funcionalidades Principais
